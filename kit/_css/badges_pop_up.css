@@ -21,6 +21,7 @@
 .popUp .container .mainContent .labelBottomContainer .label .btn.error{cursor:default;}
 .popUp .container .mainContent .labelBottomContainer .label .btn.error:hover{background:url("../_images/commonButtons/largeButtonBlank_off.png") no-repeat;color:#4f7984}
 .popUp .container .mainContent .labelBottomContainer .curve{background:url("../_images/backgrounds/curve_big_bottom.png") no-repeat;width:33px;height:42px;position:absolute;margin-left:-33px}
+.popUp .closeBtn{z-index:1}
 .popUp .newBadge{font-size:12px;}
 .popUp .newBadge .textContainer{background:url("../_images/backgrounds/badges_pop_up.png") no-repeat;width:496px;height:187px;}
 .popUp .newBadge .textContainer .column{text-align:left;float:left;position:relative;width:226px;height:170px;padding:10px 10px 0 10px;}
