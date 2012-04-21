@@ -1,15 +1,11 @@
 <!-- Left popPup's content -->
 <div class="column left">
   <!-- New won Badge -->
-  <img src="_images/badges/badge007.png" class="badge" alt="onFire Creator Badge" />
+  <img src="{{popUp.image.src}}" class="badge" alt="{{popUp.image.alt}}" />
   
   <!-- New Badge description -->
-  <h3>
-    onFire Creator Badge
-  </h3>
-  <div class="text">
-    This badge was awarded because you created a problem in Python and 8 people solved it. You are now on fire!!
-  </div>
+  <h3 ng-bind="popUp.header"></h3>
+  <div class="text" ng-bind="popUp.explanation"></div>
   
   <!-- Read more btn -->
   <a href="#" onclick="gae_bingo.bingo('Read more')" class="readBtn" title="Read more from this sponsor"></a>
@@ -22,9 +18,7 @@
   <h3>
     Congratulations
   </h3>
-  <div class="text">
-    You have earned the the Python Creator badge, you can continue on and solve and earn more badges now.
-  </div>
+  <div class="text" ng-bind="popUp.description"></div>
   <br />
   
   <!-- Share welcome text -->

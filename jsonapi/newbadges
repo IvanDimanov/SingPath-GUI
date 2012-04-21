@@ -4,6 +4,23 @@
   "description": "This badge was awarded because you created a problem in Python and 8 people solved it. You are now on fire!!",
   "explanation": "You have earned the the Python Creator badge, you can continue on and solve and earn more badges now.",
   "image"      : "_images/badges/badge007.png"
+},
+{
+  "header"     : "onFire 2 Badge",
+  "description": "2 This badge was awarded because you created a problem in Python and 8 people solved it. You are now on fire!!",
+  "explanation": "2 You have earned the the Python Creator badge, you can continue on and solve and earn more badges now.",
+  "image"      : "_images/badges/badge007.png"
+},
+{
+  "header"     : "onFire 3 Badge long name",
+  "description": "3 Long description This badge was awarded because you created a problem in Python and 8 people solved it. You are now on fire!! This badge was awarded because you created a problem in Python and 8 people solved it. You are now on fire!! This badge was awarded because you created a problem in Python and 8 people solved it. You are now on fire!!",
+  "explanation": "3 Long explanation You have earned the the Python Creator badge, you can continue on and solve and earn more badges now. You have earned the the Python Creator badge, you can continue on and solve and earn more badges now. You have earned the the Python Creator badge, you can continue on and solve and earn more badges now. You have earned the the Python Creator badge, you can continue on and solve and earn more badges now.",
+  "image"      : "_images/badges/badge007.png"
+},
+{
+  "header"     : "onFire 4 Badge",
+  "description": "4 This badge was awarded because you created a problem in Python and 8 people solved it. You are now on fire!!",
+  "explanation": "4 You have earned the the Python Creator badge, you can continue on and solve and earn more badges now.",
+  "image"      : "_images/badges/badge007.png"
 }
-
 ]
