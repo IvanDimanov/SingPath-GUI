@@ -10,7 +10,9 @@
 .profileContainer .textContainer,.badgesContainer .textContainer,.challengesContainer .textContainer,.rankingContainer .textContainer{background-repeat:no-repeat;text-align:left;}
 .profileContainer .textContainer .text,.badgesContainer .textContainer .text,.challengesContainer .textContainer .text,.rankingContainer .textContainer .text{padding-left:14px}
 .profileContainer{margin-left:9px;}
-.profileContainer .textContainer{background:url("../../static/_images/home_page/profile_student_box_small_cut.png") no-repeat;width:499px;height:215px;}
+.profileContainer.professional .textContainer{background:url("../../static/_images/home_page/profile_professional_box_small_cut.png") no-repeat}
+.profileContainer.student .textContainer{background:url("../../static/_images/home_page/profile_student_box_small_cut.png") no-repeat}
+.profileContainer .textContainer{width:499px;height:215px;}
 .profileContainer .textContainer .profileName{font-size:16px;font-weight:bold;color:#f7d3a4;text-align:center;line-height:32px}
 .profileContainer .textContainer .gravatar{border-top-left-radius:9px;border-top-right-radius:9px;border-bottom-right-radius:9px;border-bottom-left-radius:9px;-moz-border-radius-topleft:9px;-moz-border-radius-topright:9px;-moz-border-radius-bottomright:9px;-moz-border-radius-bottomleft:9px;float:left;margin:27px 0 -10px 0;width:95px;height:95px}
 .profileContainer .textContainer .text .imgWrapper{float:left;width:110px;}

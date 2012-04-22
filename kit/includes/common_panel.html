@@ -11,7 +11,8 @@
   </div>
   
   <div class="textContainer">
-    <div ng-switch on="containerClass">
+    <!-- Choose a panel body regarding the main container class -->
+    <div ng-switch on="containerClass.split(' ')[0]">
       <!-- Load the Profile Panel -->
       <div ng-include ng-switch-when="profileContainer" src="'includes/profile_panel.html'"></div>
       
