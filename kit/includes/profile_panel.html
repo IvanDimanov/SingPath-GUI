@@ -32,9 +32,9 @@
           {{tag}}
         </a>
         
-        <div ng-switch on="visibleTags.length != profile.tags.length">
+        <span ng-switch on="visibleTags.length != profile.tags.length()">
           <span ng-switch-when="true">...<span>
-        </div>
+        </span>
     </div>
     
     <div class="details" ng-click="testClick(1, $event)">

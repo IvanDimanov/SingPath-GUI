@@ -4,7 +4,6 @@
 window.USER = {
  "isLogged": false
 };
-window.MENU = true;
 
 
 function RankingStatsPageCtr($scope){
@@ -43,13 +42,19 @@ window.LoadPageCtrl = function ($scope, $resource) {
   // Mapping the Global var to the current controller var
   // Note: Object copping in JavaScript is made by reference
   $scope.USER = window.USER;
-  $scope.MENU = window.MENU;
   
   // Send a request back to the server which page was loaded and when
   LogAccessCtrl($resource);
   
   // Preload some basic images
-  MM_preloadImages('_images/landingPages/landingPageButtons/singpathLogo_on.png','_images/landingPages/landingPageButtons/signUp_on.png','_images/landingPages/landingPageButtons/houseProfile_on.png','_images/landingPages/landingPageButtons/shoppingTrolley_on.png','_images/landingPages/landingPageButtons/gr8ph1csLogo_on.png','_images/landingPages/landingPageButtons/signIn_on.png');
+  MM_preloadImages(
+    '_images/landingPages/landingPageButtons/singpathLogo_on.png',
+    '_images/landingPages/landingPageButtons/signUp_on.png',
+    '_images/landingPages/landingPageButtons/houseProfile_on.png',
+    '_images/landingPages/landingPageButtons/shoppingTrolley_on.png',
+    '_images/landingPages/landingPageButtons/gr8ph1csLogo_on.png',
+    '_images/landingPages/landingPageButtons/signIn_on.png'
+  );
 };
 
 

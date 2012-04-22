@@ -7,7 +7,7 @@ body {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 14px;
 	white-space: nowrap;
-	background: #666 url(../_images/background.jpg) repeat-x center top;
+	background: #666 url("../../static/_images/backgrounds/body.jpg") repeat-x center top;
 	margin: 0px auto;
 }
 /* aboutUs */
@@ -25,7 +25,7 @@ body {
 	font-size: 14px;
 	color: #4F7984;
 	display: block;
-	background: url(../_images/greyBackground.jpg) repeat-y fixed center top;
+	background: url("../../static/_images/backgrounds/grey.jpg") repeat-y fixed center top;
 	margin: 0px auto;
 	clear: both;
 	overflow: hidden;

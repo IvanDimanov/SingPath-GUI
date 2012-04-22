@@ -108,10 +108,10 @@ commonBGContainer()
       padding          1px 5px 0px 14px
     
     .curve
-      background-image url(../_images/backgrounds/curve_small_top.png)
-      float            right
-      width            29px
-      height           $curveHeight
+      background url("../../static/_images/backgrounds/curve_small_top.png") no-repeat
+      float      right
+      width      29px
+      height     $curveHeight
   
   .textContainer
     margin  25px 0px 0px 0px
@@ -155,7 +155,7 @@ commonPopUp()
       display     inline-block
       
       .closeBtn
-        background url(../_images/commonButtons/popUpClose_off.png) no-repeat
+        background url("../../static/_images/common_buttons/pop_up_close_off.png") no-repeat
         cursor     pointer
         position   absolute
         top        10px
@@ -164,7 +164,7 @@ commonPopUp()
         height     35px
         
         &:hover
-          background url(../_images/commonButtons/popUpClose_on.png) no-repeat
+          background url("../../static/_images/common_buttons/pop_up_close_on.png") no-repeat
       
       .labelBottomContainer
         float    right
@@ -186,7 +186,7 @@ commonPopUp()
           $btnHeight = 38px
           
           .btn
-            background   url(../_images/commonButtons/largeButtonBlank_off.png) no-repeat
+            background   url("../../static/_images/common_buttons/large_button_blank_off.png") no-repeat
             font-size    19px
             color        $commonTextColor
             text-align   center
@@ -199,21 +199,21 @@ commonPopUp()
             margin-right 9px
             
             &:hover, &.on
-              background url(../_images/commonButtons/largeButtonBlank_on.png) no-repeat
+              background url("../../static/_images/common_buttons/large_button_blank_on.png") no-repeat
               color      #FFF
             
             &.error
               cursor default
               
               &:hover
-                background url(../_images/commonButtons/largeButtonBlank_off.png) no-repeat
+                background url("../../static/_images/common_buttons/large_button_blank_off.png") no-repeat
                 color      $commonTextColor
         
         $curveWidth  = 33px
         $curveHeight = 42px
         
         .curve
-          background url(../_images/backgrounds/curve_big_bottom.png) no-repeat
+          background url("../../static/_images/backgrounds/curve_big_bottom.png") no-repeat
           width      $curveWidth
           height     $curveHeight
           

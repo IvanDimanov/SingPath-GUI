@@ -27,7 +27,11 @@ function MM_preloadImages() { //v3.0
 }
 
 window.onload = function () {
-  MM_preloadImages('../kit/_images/landingPages/landingPageButtons/staffProfileSandra_on.png','../kit/_images/landingPages/landingPageButtons/staffProfileChris_on.png','../kit/_images/landingPages/landingPageButtons/staffProfileShane_on.png');
+  MM_preloadImages(
+    '../kit/_images/landingPages/landingPageButtons/staffProfileSandra_on.png',
+    '../kit/_images/landingPages/landingPageButtons/staffProfileChris_on.png',
+    '../kit/_images/landingPages/landingPageButtons/staffProfileShane_on.png'
+  );
 }
 
 gae_bingo.ab_test("click-button-from-about-us", { "top-half" : 50, "bottom-half" : 50 }, ["SingPath Logo", "Sign In", "Home", "Shop", "Play", "Splash", "About Us", "How to Use", "Contribution", "Tournament", "Ranking", "More Staff", "home", "about us", "how to use", "terms of use", "contribution", "feedback", "contact us", "shop", "Sign out", "gr8ph1cs Logo"]);
@@ -89,9 +93,9 @@ gae_bingo.ab_test("click-button-from-about-us", { "top-half" : 50, "bottom-half"
     <!-- Include Page Footer -->
     <div ng-include src="'includes/pageFooter.html'"></div>
   </div>
-
-
+  
+  
   <!-- Google Analytics -->
-  <div ng-include src="'includes/googleAnalytics.html'"></div>
+  <div ng-controller="GoogleAnalyticsCtrl"></div>
 </body>
 </html>

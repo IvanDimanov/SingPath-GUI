@@ -211,3 +211,25 @@ function addEvent(nodeElement, event, callback, useCaptureOrder) {
     alert('Your browser does not support event handlers!');
   }
 }
+
+
+/**
+ * Calc all Object elements
+ * Similar to Array.length
+ * 
+ * @return length the total number of elements in the object
+ */
+Object.prototype.length = function() {
+  var tempObj = null,
+      length  = 0;
+  
+  // Sum all elements in the Object
+  for (tempObj in this) {
+    // Don't count the counter itself
+    if (tempObj != 'length') {
+      length++;
+    }
+  }
+  
+  return length;
+};

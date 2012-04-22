@@ -25,9 +25,6 @@
 	<script src="_js/feedback-v2.js" type="text/javascript"></script>
 	<script src="js/commonTools.js"      type="text/javascript"></script>
 	<script src="js/controllers.js"      type="text/javascript"></script>
-	<script type="text/javascript">
-		window.MENU = false;
-	</script>
 	<link rel="stylesheet" type="text/css" href="_css/jquery.countdown.css" />
 </head>
 <body ng-controller="LoadPageCtrl">
@@ -173,7 +170,9 @@
       </tr>
     </table>
   </div>
-   <div ng-include src="'includes/googleAnalytics.html'"></div>
+  
+  <!-- Google Analytics -->
+  <div ng-controller="GoogleAnalyticsCtrl"></div>
  </div>
  </div>
 </body>

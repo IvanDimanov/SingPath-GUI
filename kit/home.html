@@ -26,9 +26,6 @@
 	
   <script src="_js/jsonrender/common.js" type="text/javascript"></script>
 	<script src="_js/jsonrender/home.js" type="text/javascript"></script>
-	<script type="text/javascript">
-		window.MENU = false;
-	</script>
 </head>
 <body ng-controller="LoadPageCtrl">
   <div id="wrapper" ng-controller="HomeCtrl">
@@ -104,6 +101,6 @@
   
   
   <!-- Google Analytics -->
-  <div ng-include src="'includes/googleAnalytics.html'"></div>
+  <div ng-controller="GoogleAnalyticsCtrl"></div>
 </body>
 </html>

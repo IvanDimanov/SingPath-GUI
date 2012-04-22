@@ -105,7 +105,7 @@ td.inputMedium > input, td.inputMedium > select {
   width: 201px;
 }
 td.inputLong {
-  background-image: url('../_images/homePage/inputLong.png');
+  background-image: url("../../static/_images/home_page/input_long.png");
   width: 315px;
 }
 td.inputLong > input, td.inputLong > select {
