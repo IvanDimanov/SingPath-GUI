@@ -1,59 +1,24 @@
-/* App Controllers */
-
-
-// Global hash change callback register
-window.onHash = [];
-
-// Create an alternative to jQuery onhashchange event
-function checkHash() {
-  if(hash = window.location.hash) {
-    // Remove the hash from the address bar
-    window.location.hash = '';
-    
-    // Call a callback function if there's any in the Global register
-    if(typeof(callback = window.onHash[hash]) == 'function') {
-      callback.call();
-    }
-  }
-}
-setInterval(checkHash, 100);
-
+/** App Controllers */
 
 // Create a Global var to keep track of the player session
 window.USER = {
  "isLogged": false
-}
-window.MENU = true;
+};
 
 
 function RankingStatsPageCtr($scope){
-	$scope.index_style = '';
+  $scope.index_style = '';
 }
 
 
 function IndexStatsPageCtr($scope){
-	$scope.index_style = 'top:-150px';
-}
-
-
-// Set a certain number of actions when the page is loaded
-function LoadPageCtrl($scope, $resource) {
-  // Mapping the Global var to the current controller var
-  // Note: Object copping in JavaScript is made by reference
-  $scope.USER = window.USER;
-  $scope.MENU = window.MENU;
-  
-  // Send a request back to the server which page was loaded and when
-  LogAccessCtrl($resource);
-  
-  // Preload some basic images
-  MM_preloadImages('_images/landingPages/landingPageButtons/singpathLogo_on.png','_images/landingPages/landingPageButtons/signUp_on.png','_images/landingPages/landingPageButtons/houseProfile_on.png','_images/landingPages/landingPageButtons/shoppingTrolley_on.png','_images/landingPages/landingPageButtons/gr8ph1csLogo_on.png','_images/landingPages/landingPageButtons/signIn_on.png');
+  $scope.index_style = 'top:-150px';
 }
 
 
 // Send a request back to the server which page was loaded and when
 function LogAccessCtrl($resource) {
-  logAccess = $resource('../jsonapi/log_access').get(function() {
+  var logAccess = $resource('../jsonapi/log_access').get(function() {
     logAccess.page = getHref();
     logAccess.date = new Date().getTime();
     
@@ -66,10 +31,31 @@ function LogAccessCtrl($resource) {
 // Preload images
 // TODO: To be updated
 function MM_preloadImages() { //v3.0
-  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+  var d=document; if(d.images){ if(!d.MM_p) { d.MM_p=[]; }
     var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
-    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image(); d.MM_p[j++].src=a[i];}}
 }
+
+
+// Set a certain number of actions when the page is loaded
+window.LoadPageCtrl = function ($scope, $resource) {
+  // Mapping the Global var to the current controller var
+  // Note: Object copping in JavaScript is made by reference
+  $scope.USER = window.USER;
+  
+  // Send a request back to the server which page was loaded and when
+  LogAccessCtrl($resource);
+  
+  // Preload some basic images
+  MM_preloadImages(
+    '_images/landingPages/landingPageButtons/singpathLogo_on.png',
+    '_images/landingPages/landingPageButtons/signUp_on.png',
+    '_images/landingPages/landingPageButtons/houseProfile_on.png',
+    '_images/landingPages/landingPageButtons/shoppingTrolley_on.png',
+    '_images/landingPages/landingPageButtons/gr8ph1csLogo_on.png',
+    '_images/landingPages/landingPageButtons/signIn_on.png'
+  );
+};
 
 
 function UserLoginMenuCtrl($scope, $resource, $window) {
@@ -108,19 +94,18 @@ function FooterLogosCtrl($scope, $resource) {
 
 
 function RankingCtrl($scope, $resource) {
-  countryModel = $resource("../jsonapi/country_ranking");
-  $scope.country_ranking = countryModel.get();
+  $scope.country_ranking = $resource("../jsonapi/country_ranking").get();
   
   $scope.addZeros = function(elem){
-		width = 2;
-		number = elem.rank;
-		width -= number.toString().length;
-		if ( width > 0 )
-		  {
-		    return new Array( width + (/\./.test( number ) ? 2 : 1) ).join( '0' ) + number;
-		  }
-		return number;
-	}
+    width = 2;
+    number = elem.rank;
+    width -= number.toString().length;
+    if ( width > 0 )
+      {
+        return new Array( width + (/\./.test( number ) ? 2 : 1) ).join( '0' ) + number;
+      }
+    return number;
+  }
 }
 
 
@@ -274,117 +259,117 @@ function CountriesCtrl($scope, $resource) {
 
 
 function TagsCtrl($scope, $resource, $location) {
-	tagsCtrl = $resource('../jsonapi/tags');
-	$scope.tags = [];
-	$scope.tagsCtrl = tagsCtrl.get(function(){
-		angular.forEach($scope.tagsCtrl.tags, function(elem) {
-			$scope.tags.push(elem);
-	    });
-		if ($location.search().tag){
-			var selected = -1;
-			var pointer = 0;
-			angular.forEach($scope.tagsCtrl.tags, function(elem) {
-		          if (elem==$location.search().tag){
-		        	  selected = pointer;
-		          }
-		           ++pointer;
-		    });
-			if (selected==-1){
-				//insert the new tag into the array
-				$scope.tags.push($location.search().tag);
-				selected = $scope.tags.length-1;
-			}
-			$scope.index = selected;
-		}
-	});
-	$scope.index = 0;
-	$scope.tagCount= function(){
+  tagsCtrl = $resource('../jsonapi/tags');
+  $scope.tags = [];
+  $scope.tagsCtrl = tagsCtrl.get(function(){
+    angular.forEach($scope.tagsCtrl.tags, function(elem) {
+      $scope.tags.push(elem);
+      });
+    if ($location.search().tag){
+      var selected = -1;
+      var pointer = 0;
+      angular.forEach($scope.tagsCtrl.tags, function(elem) {
+              if (elem==$location.search().tag){
+                selected = pointer;
+              }
+               ++pointer;
+        });
+      if (selected==-1){
+        //insert the new tag into the array
+        $scope.tags.push($location.search().tag);
+        selected = $scope.tags.length-1;
+      }
+      $scope.index = selected;
+    }
+  });
+  $scope.index = 0;
+  $scope.tagCount= function(){
         var index = 0;
-    	angular.forEach($scope.tags, function(elem) {
+      angular.forEach($scope.tags, function(elem) {
           ++index;
         });
-    	return index;
+      return index;
     };
-	$scope.selectNextTag = function(){
-		if ($scope.index<$scope.tagCount()-1)
-			++$scope.index;
-		else
-			$scope.index = 0;
-	}
+  $scope.selectNextTag = function(){
+    if ($scope.index<$scope.tagCount()-1)
+      ++$scope.index;
+    else
+      $scope.index = 0;
+  }
 }
 
 
 function LanguageSelectorCtrl($scope, $resource) {
-	$scope.allClass = 'on';
-	$scope.languages = []
-	languageSelector = $resource('../jsonapi/get_game_paths');
-	$scope.languageSelector = languageSelector.get(function(){
-			angular.forEach($scope.languageSelector.paths, function(elem) {
-				$scope.languages.push({data:elem,selected:false});
-			});
-	});
-	$scope.pathSelected=function(path){
-		var index = 0;
-		var selected = -1
-		angular.forEach($scope.languageSelector.paths, function(elem) {
-				if (elem==path)
-					selected = index;
-				++index;
-		});
-		if (selected!=-1 && $scope.languages[selected].selected)
-			return "on";
-		return "off";
-	}
-	$scope.pathAllSelected = function(){
-		return $scope.allClass;
-	}
-	$scope.setPathAllSelected = function(value){
-		$scope.allClass=value;
-	}
-	
-	$scope.setPathSelected=function(path,all){
-		var index = 0;
-		var selected = -1;
-		angular.forEach($scope.languageSelector.paths, function(elem) {
-				if (elem==path)
-					selected = index;
-				++index;
-		});
-		angular.forEach($scope.languages,function(elem){
-			elem.selected = false;
-		});
-		if (all){
-			$scope.setPathAllSelected('on');
-		}
-		else{
-			$scope.setPathAllSelected('off');
-			$scope.languages[selected].selected = true;
-		}
-	}
+  $scope.allClass = 'on';
+  $scope.languages = []
+  languageSelector = $resource('../jsonapi/get_game_paths');
+  $scope.languageSelector = languageSelector.get(function(){
+      angular.forEach($scope.languageSelector.paths, function(elem) {
+        $scope.languages.push({data:elem,selected:false});
+      });
+  });
+  $scope.pathSelected=function(path){
+    var index = 0;
+    var selected = -1
+    angular.forEach($scope.languageSelector.paths, function(elem) {
+        if (elem==path)
+          selected = index;
+        ++index;
+    });
+    if (selected!=-1 && $scope.languages[selected].selected)
+      return "on";
+    return "off";
+  }
+  $scope.pathAllSelected = function(){
+    return $scope.allClass;
+  }
+  $scope.setPathAllSelected = function(value){
+    $scope.allClass=value;
+  }
+  
+  $scope.setPathSelected=function(path,all){
+    var index = 0;
+    var selected = -1;
+    angular.forEach($scope.languageSelector.paths, function(elem) {
+        if (elem==path)
+          selected = index;
+        ++index;
+    });
+    angular.forEach($scope.languages,function(elem){
+      elem.selected = false;
+    });
+    if (all){
+      $scope.setPathAllSelected('on');
+    }
+    else{
+      $scope.setPathAllSelected('off');
+      $scope.languages[selected].selected = true;
+    }
+  }
 }
 
 
 function ChallengeAnswerCtrl($scope, $resource, $location) {
-	challengeRes = $resource('../jsonapi/get_challenge_player_message?challenge_id=:challenge_id&player_id=:player_id');
-	
-	$scope.player_id = null;
-	$scope.challenge_id = null;
-	$scope.challenge = null;
-	$scope.name = null;
-	$scope.publicMessage = null;
-	$scope.registeredMessage = null;
-	$scope.unlockMessage = null;
-	$scope.privateMessage = null;
-	$scope.challenge_id = null;
-	$scope.playerFeedback = null;
-	$scope.playerAttachmentID = null;
-	
-	if ($location.search().challenge_id && $location.search().player_id ){
-		$scope.challenge_id = $location.search().challenge_id;
-	    $scope.player_id = $location.search().player_id;
-		$scope.challenge = challengeRes.get({challenge_id: $scope.challenge_id, player_id: $scope.player_id},
-		function(){
-			$scope.name=$scope.challenge.challenge.name;
+  challengeRes = $resource('../jsonapi/get_challenge_player_message?challenge_id=:challenge_id&player_id=:player_id');
+  
+  $scope.player_id = null;
+  $scope.challenge_id = null;
+  $scope.challenge = null;
+  $scope.name = null;
+  $scope.publicMessage = null;
+  $scope.registeredMessage = null;
+  $scope.unlockMessage = null;
+  $scope.privateMessage = null;
+  $scope.challenge_id = null;
+  $scope.playerFeedback = null;
+  $scope.playerAttachmentID = null;
+  
+  if ($location.search().challenge_id && $location.search().player_id ){
+    $scope.challenge_id = $location.search().challenge_id;
+      $scope.player_id = $location.search().player_id;
+    $scope.challenge = challengeRes.get({challenge_id: $scope.challenge_id, player_id: $scope.player_id},
+    function(){
+      $scope.name=$scope.challenge.challenge.name;
             $scope.publicMessage = $scope.challenge.challenge.publicMessage;
             $scope.registeredMessage = $scope.challenge.challenge.registeredMessage;
             $scope.unlockMessage=$scope.challenge.challenge.unlockMessage;
@@ -392,35 +377,35 @@ function ChallengeAnswerCtrl($scope, $resource, $location) {
             $scope.challenge_id=$scope.challenge.challenge.challenge_id;
             $scope.playerFeedback=$scope.challenge.challenge.playerFeedback;
             $scope.playerAttachmentID =$scope.challenge.challenge.playerAttachmentID;
-		}
-		);
-	}
+    }
+    );
+  }
 }
 
 
 function TournamentsCtrl($scope, $resource) {
-	tournament = $resource("../jsonapi/list_tournaments");
-	$scope.tournament = tournament.query(function(){
-			renderTournamentList($scope.tournament);
-			if (getTournamentID()) {
-					tournament_registration_status = $resource('../jsonapi/tournament_registration_status/' + getTournamentID());
-					tournament_registration_status_get = tournament_registration_status.get(function(){
-						checkTournamentRegistrationStatus(tournament_registration_status_get);
-						reloadTournamentPage(getTournamentID());
-					});
-		      } else {
-		        disableSignIn();
-		      }
-	});
+  tournament = $resource("../jsonapi/list_tournaments");
+  $scope.tournament = tournament.query(function(){
+      renderTournamentList($scope.tournament);
+      if (getTournamentID()) {
+          tournament_registration_status = $resource('../jsonapi/tournament_registration_status/' + getTournamentID());
+          tournament_registration_status_get = tournament_registration_status.get(function(){
+            checkTournamentRegistrationStatus(tournament_registration_status_get);
+            reloadTournamentPage(getTournamentID());
+          });
+          } else {
+            disableSignIn();
+          }
+  });
 }
 
 
 function TournamentCtrl($scope, $resource) {
-	var tournamentID = getParameterFromURL('tournamentID');
-	tournament = $resource('../jsonapi/tournament/'+tournamentID);
-	$scope.tournament = tournament.get(function(){
-		renderTournamentRanking($scope.tournament)
-	});
+  var tournamentID = getParameterFromURL('tournamentID');
+  tournament = $resource('../jsonapi/tournament/'+tournamentID);
+  $scope.tournament = tournament.get(function(){
+    renderTournamentRanking($scope.tournament)
+  });
 }
 
 
@@ -507,15 +492,15 @@ function ChallengesAllCtrl($scope, $resource) {
 
 
 function ListChallengePlayersCtrl($scope, $resource) {
-	var challenge_id = getIdFromURL('challenge_id');
-	if (challenge_id){
-			var url = '../jsonapi/list_challenge_players';
-			url = url + '?challenge_id=:challenge_id';
-			challengeRes = $resource(url);
-			$scope.challenge = challengeRes.get({challenge_id:challenge_id},function(){
-					loadChallengePlayers($scope.challenge);
-			});
-	}
+  var challenge_id = getIdFromURL('challenge_id');
+  if (challenge_id){
+      var url = '../jsonapi/list_challenge_players';
+      url = url + '?challenge_id=:challenge_id';
+      challengeRes = $resource(url);
+      $scope.challenge = challengeRes.get({challenge_id:challenge_id},function(){
+          loadChallengePlayers($scope.challenge);
+      });
+  }
 }
 
 
@@ -535,21 +520,21 @@ function LoadProblemCtrl($scope, $resource) {
 
 
 function GetGamePathCtrl($scope, $resource) {
-	var url = '../jsonapi/get_game_paths';
-	challengeRes = $resource(url);
-	$scope.get_game_paths = challengeRes.get(function(){
-		 		all_countries = $resource("../jsonapi/all_countries");
-				 $scope.countries = all_countries.get(function(){
-					 //var url = '../jsonapi/get_challenge_for_edit';
-					//url = url + '?challenge_id=:challenge_id';
-					//	get_challenge_for_edit = $resource(url);
-					//	$scope.get_challenge_for_edit = get_challenge_for_edit.get(function(){
-							loadCountries($scope.countries);
-						 	loadGamePathsAndBadges($scope.get_game_paths);
-					//		loadChallenge($scope.get_challenge_for_edit);
-					//	});
-				 });
-	});
+  var url = '../jsonapi/get_game_paths';
+  challengeRes = $resource(url);
+  $scope.get_game_paths = challengeRes.get(function(){
+        all_countries = $resource("../jsonapi/all_countries");
+         $scope.countries = all_countries.get(function(){
+           //var url = '../jsonapi/get_challenge_for_edit';
+          //url = url + '?challenge_id=:challenge_id';
+          //	get_challenge_for_edit = $resource(url);
+          //	$scope.get_challenge_for_edit = get_challenge_for_edit.get(function(){
+              loadCountries($scope.countries);
+              loadGamePathsAndBadges($scope.get_game_paths);
+          //		loadChallenge($scope.get_challenge_for_edit);
+          //	});
+         });
+  });
 }
 
 
@@ -559,213 +544,213 @@ function GetChallengeForEditCtrl($scope, $resource) {
 
 
 function TournamentRankingCtrl($scope, $resource) {
-	$scope.tournamentRanking = $resource('../jsonapi/get_heat_ranking').get();
+  $scope.tournamentRanking = $resource('../jsonapi/get_heat_ranking').get();
 }
 
 
 function WorldWideRankingCtrl($scope, $resource) {
-	$scope.ranking = [];
-	$scope.currentCountry = "Singapore";
-	$scope.currentCountryCode = "SG";
-	$scope.activeWorldRanking = false;
-	worldWideRanking = $resource('../jsonapi/worldwide_ranking?maxRank=:maxRank&path_id=:path_id&countryCode=:countryCode',{maxRank:'25',path_id:'6569723',countryCode:'SG'});
-	$scope.worldWideRanking = worldWideRanking.get({maxRank:'25',path_id:'6569723',countryCode:'SG'},function(){
-		$scope.initRanking($scope.doFilterByCountry);
-	});
-	
-	$scope.getStyle0 = function(){
-		return $scope.style0;
-	}
-	
-	$scope.getStyle = function(){
-		return $scope.style;
-	}
-	
-	$scope.getStyle2 = function(){
-		return $scope.style2;
-	}
-	
-	$scope.getStyle3 = function(){
-		return $scope.style3;
-	}
-	
-	$scope.getStyle4 = function(){
-		return $scope.style4;
-	}
-	
-	$scope.activateWorldRanking = function() {
-				 $scope.activeWorldRanking = true;
-				 $scope.style0={
-			      'background-image': 'url(_images/commonButtons/tab-headers-combined.png)',
-			  	  'background-position': '-35px -52px',
-			  	  'background-repeat': 'no-repeat',
-			  	  'width': '8px',
-			  	  'cursor': 'pointer'
-			      }; 
-			      $scope.style3={
-			      	'background-image': 'url(_images/commonButtons/tab-headers-combined.png)',
-			  		'background-position': '-170px -52px',
-			  		'background-repeat': 'no-repeat',
-			  		'width': '8px',
-			  		'cursor': 'pointer'
-			      };
-			      $scope.style4={
-			      	'background-image': 'url(_images/commonButtons/tab-headers-combined.png)',
-			  		'background-position': '-13px -52px',
-			  		'background-repeat': 'no-repeat',
-			  		'width': '18px'
-			      };
-			      $scope.style2={
-				  'background-image': 'url(_images/commonButtons/tab-headers-combined.png)',
-			  	  'background-position': '0px -27px',
-			  	  'background-repeat': 'no-repeat',
-			  	  'color': 'white',
-			  	  'font-size': '16px',
-			  	  'font-weight': 'normal'
-				  };
-			      $scope.style= {
-			        'background-image': 'url(_images/commonButtons/tab-headers-combined.png)',
-					'background-position': '0px -1px',
-					'background-repeat': 'no-repeat',
-					'color': '#49727A',
-					'font-size': '16px',
-					'font-weight': 'normal',
-					'cursor': 'pointer'
-					};
-	}
-	
-	$scope.activateTabCountry = function() {
-			  $scope.activeWorldRanking = false;
-			  $scope.style0={
-			  'background-image': 'url(_images/commonButtons/tab-headers-combined.png)',
-		  	  'background-position': '0px -52px',
-		  	  'background-repeat': 'no-repeat',
-		  	  'width': '8px'
-			  };
-		      $scope.style3={
-			  'background-image': 'url(_images/commonButtons/tab-headers-combined.png)',
-		  	  'background-position': '-129px -52px',
-		  	  'background-repeat': 'no-repeat',
-		  	  'width': '8px'
-			  };
-		      $scope.style4={
-			  	'background-image': 'url(_images/commonButtons/tab-headers-combined.png)',
-		  		'background-position': '-45px -52px',
-		  		'background-repeat': 'no-repeat',
-		  		'width': '23px',
-		  		'cursor': 'pointer'
-			  };
-		      $scope.style={
-			  'background-image': 'url(_images/commonButtons/tab-headers-combined.png)',
-		  	  'background-position': '0px -27px',
-		  	  'background-repeat': 'no-repeat',
-		  	  'color': 'white',
-		  	  'font-size': '16px',
-		  	  'font-weight': 'normal'
-			  };
-		      $scope.style2= {'cursor':'pointer','color': '#517A83', 'border': '0px none #FFF100', 'background': 'url(_images/commonButtons/tab-headers-combined.png) no-repeat 0px 0px' };
-	}
+  $scope.ranking = [];
+  $scope.currentCountry = "Singapore";
+  $scope.currentCountryCode = "SG";
+  $scope.activeWorldRanking = false;
+  worldWideRanking = $resource('../jsonapi/worldwide_ranking?maxRank=:maxRank&path_id=:path_id&countryCode=:countryCode',{maxRank:'25',path_id:'6569723',countryCode:'SG'});
+  $scope.worldWideRanking = worldWideRanking.get({maxRank:'25',path_id:'6569723',countryCode:'SG'},function(){
+    $scope.initRanking($scope.doFilterByCountry);
+  });
+  
+  $scope.getStyle0 = function(){
+    return $scope.style0;
+  }
+  
+  $scope.getStyle = function(){
+    return $scope.style;
+  }
+  
+  $scope.getStyle2 = function(){
+    return $scope.style2;
+  }
+  
+  $scope.getStyle3 = function(){
+    return $scope.style3;
+  }
+  
+  $scope.getStyle4 = function(){
+    return $scope.style4;
+  }
+  
+  $scope.activateWorldRanking = function() {
+         $scope.activeWorldRanking = true;
+         $scope.style0={
+            'background-image': 'url(_images/commonButtons/tab-headers-combined.png)',
+            'background-position': '-35px -52px',
+            'background-repeat': 'no-repeat',
+            'width': '8px',
+            'cursor': 'pointer'
+            }; 
+            $scope.style3={
+              'background-image': 'url(_images/commonButtons/tab-headers-combined.png)',
+            'background-position': '-170px -52px',
+            'background-repeat': 'no-repeat',
+            'width': '8px',
+            'cursor': 'pointer'
+            };
+            $scope.style4={
+              'background-image': 'url(_images/commonButtons/tab-headers-combined.png)',
+            'background-position': '-13px -52px',
+            'background-repeat': 'no-repeat',
+            'width': '18px'
+            };
+            $scope.style2={
+          'background-image': 'url(_images/commonButtons/tab-headers-combined.png)',
+            'background-position': '0px -27px',
+            'background-repeat': 'no-repeat',
+            'color': 'white',
+            'font-size': '16px',
+            'font-weight': 'normal'
+          };
+            $scope.style= {
+              'background-image': 'url(_images/commonButtons/tab-headers-combined.png)',
+          'background-position': '0px -1px',
+          'background-repeat': 'no-repeat',
+          'color': '#49727A',
+          'font-size': '16px',
+          'font-weight': 'normal',
+          'cursor': 'pointer'
+          };
+  }
+  
+  $scope.activateTabCountry = function() {
+        $scope.activeWorldRanking = false;
+        $scope.style0={
+        'background-image': 'url(_images/commonButtons/tab-headers-combined.png)',
+          'background-position': '0px -52px',
+          'background-repeat': 'no-repeat',
+          'width': '8px'
+        };
+          $scope.style3={
+        'background-image': 'url(_images/commonButtons/tab-headers-combined.png)',
+          'background-position': '-129px -52px',
+          'background-repeat': 'no-repeat',
+          'width': '8px'
+        };
+          $scope.style4={
+          'background-image': 'url(_images/commonButtons/tab-headers-combined.png)',
+          'background-position': '-45px -52px',
+          'background-repeat': 'no-repeat',
+          'width': '23px',
+          'cursor': 'pointer'
+        };
+          $scope.style={
+        'background-image': 'url(_images/commonButtons/tab-headers-combined.png)',
+          'background-position': '0px -27px',
+          'background-repeat': 'no-repeat',
+          'color': 'white',
+          'font-size': '16px',
+          'font-weight': 'normal'
+        };
+          $scope.style2= {'cursor':'pointer','color': '#517A83', 'border': '0px none #FFF100', 'background': 'url(_images/commonButtons/tab-headers-combined.png) no-repeat 0px 0px' };
+  }
 
-	$scope.loadLanguage = function(path_id) {
-		$scope.path_id = path_id;
-		$scope.worldWideRanking = worldWideRanking.get({maxRank:'25',path_id:$scope.path_id,countryCode:$scope.currentCountryCode},function(){
-			if ($scope.activeWorldRanking)
-				$scope.initRanking($scope.doFilter);
-			else
-				$scope.initRanking($scope.doFilterByCountry);
-		});
-	}  
-	
-	$scope.getCurrentCountry=function() {
-		return $scope.currentCountry;
-	}
-	
-	$scope.checkLast = function(elem) {
-		var index = $scope.ranking.indexOf(elem);
-		var count = $scope.playersCount();
-		if (elem.rank>25)
-			return "UR";
-		width = 2;
-		number = elem.rank;
-		width -= number.toString().length;
-		if ( width > 0 )
-		  {
-		    return new Array( width + (/\./.test( number ) ? 2 : 1) ).join( '0' ) + number;
-		  }
-		return number;
-	}
-	$scope.addZeros = function(elem) {
-		width = 2;
-		number = elem.rank;
-		if (elem.rank>25)
-			return "25";
-		width -= number.toString().length;
-		if ( width > 0 )
-		  {
-		    return new Array( width + (/\./.test( number ) ? 2 : 1) ).join( '0' ) + number;
-		  }
-		return number;
-	}
-	$scope.doLanguageSelection = function(elem) {
-		return elem.path_id==$scope.current_path_id;
-	}
-	$scope.doFilter = function(elem) {
+  $scope.loadLanguage = function(path_id) {
+    $scope.path_id = path_id;
+    $scope.worldWideRanking = worldWideRanking.get({maxRank:'25',path_id:$scope.path_id,countryCode:$scope.currentCountryCode},function(){
+      if ($scope.activeWorldRanking)
+        $scope.initRanking($scope.doFilter);
+      else
+        $scope.initRanking($scope.doFilterByCountry);
+    });
+  }  
+  
+  $scope.getCurrentCountry=function() {
+    return $scope.currentCountry;
+  }
+  
+  $scope.checkLast = function(elem) {
+    var index = $scope.ranking.indexOf(elem);
+    var count = $scope.playersCount();
+    if (elem.rank>25)
+      return "UR";
+    width = 2;
+    number = elem.rank;
+    width -= number.toString().length;
+    if ( width > 0 )
+      {
+        return new Array( width + (/\./.test( number ) ? 2 : 1) ).join( '0' ) + number;
+      }
+    return number;
+  }
+  $scope.addZeros = function(elem) {
+    width = 2;
+    number = elem.rank;
+    if (elem.rank>25)
+      return "25";
+    width -= number.toString().length;
+    if ( width > 0 )
+      {
+        return new Array( width + (/\./.test( number ) ? 2 : 1) ).join( '0' ) + number;
+      }
+    return number;
+  }
+  $scope.doLanguageSelection = function(elem) {
+    return elem.path_id==$scope.current_path_id;
+  }
+  $scope.doFilter = function(elem) {
         return true;
     }
-	
-	$scope.doFilterByCountry = function(elem) {
+  
+  $scope.doFilterByCountry = function(elem) {
         var isOK = elem.playerCountry.countryName==$scope.currentCountry;
         if (isOK){
-        	return true;
+          return true;
         }
         return false;
     }
-	$scope.setCountry = function(country) {
-		$scope.currentCountry = country.countryName;
-		$scope.currentCountryCode = country.country_code;
-		$scope.worldWideRanking = worldWideRanking.get({maxRank:'25',path_id:$scope.path_id,countryCode:$scope.currentCountryCode},function(){
-			$scope.initRanking($scope.doFilterByCountry);
-		});
-		$scope.activateTabCountry();
-	}
-	$scope.getRanking = function() {
-			return $scope.ranking;
-	}
-	$scope.initRanking = function(whichFilter) {
-		$scope.currentFilter = whichFilter;
-		$scope.ranking = [];
-		angular.forEach($scope.worldWideRanking.rankings.filter($scope.currentFilter), function(elem) {
-	          $scope.ranking.push(elem);
-	    });
-	}
-	$scope.reloadRanking = function() {
-		$scope.ranking = [];
-		angular.forEach($scope.worldWideRanking.rankings.filter($scope.currentFilter), function(elem) {
-	          $scope.ranking.push(elem);
-	    });
-	}
-	
-	$scope.playersCount= function() {
+  $scope.setCountry = function(country) {
+    $scope.currentCountry = country.countryName;
+    $scope.currentCountryCode = country.country_code;
+    $scope.worldWideRanking = worldWideRanking.get({maxRank:'25',path_id:$scope.path_id,countryCode:$scope.currentCountryCode},function(){
+      $scope.initRanking($scope.doFilterByCountry);
+    });
+    $scope.activateTabCountry();
+  }
+  $scope.getRanking = function() {
+      return $scope.ranking;
+  }
+  $scope.initRanking = function(whichFilter) {
+    $scope.currentFilter = whichFilter;
+    $scope.ranking = [];
+    angular.forEach($scope.worldWideRanking.rankings.filter($scope.currentFilter), function(elem) {
+            $scope.ranking.push(elem);
+      });
+  }
+  $scope.reloadRanking = function() {
+    $scope.ranking = [];
+    angular.forEach($scope.worldWideRanking.rankings.filter($scope.currentFilter), function(elem) {
+            $scope.ranking.push(elem);
+      });
+  }
+  
+  $scope.playersCount= function() {
         var index = 0;
-    	angular.forEach($scope.worldWideRanking.rankings, function(elem) {
+      angular.forEach($scope.worldWideRanking.rankings, function(elem) {
           ++index;
         });
-    	return index;
+      return index;
       };
       //$scope.initRanking($scope.doFilter);
 }
 
 
 function HeatRankingCtrl($scope, $resource) {
-	heatRanking = $resource('../jsonapi/get_heat_ranking');
-	$scope.heatRanking = heatRanking.get();
-	$scope.heatRankingArray = [];
-	
-	$scope.doFilter = function(elem) {
+  heatRanking = $resource('../jsonapi/get_heat_ranking');
+  $scope.heatRanking = heatRanking.get();
+  $scope.heatRankingArray = [];
+  
+  $scope.doFilter = function(elem) {
         $scope.heatRankingArray.push(elem);
         return true;
     }
-	$scope.doFilter2 = function(elem) {
+  $scope.doFilter2 = function(elem) {
         $scope.heatRankingArray.push(elem);
         return true;
     }
@@ -794,15 +779,29 @@ function FooterMenuOptionsCtrl($scope, $resource) {
 }
 
 
-function GoogleAnalyticsCtrl($scope) {
-  // Location Google Analytics JS file
-  $scope.gaJsSrc = getFirstURLChars() + 'google-analytics.com/ga.js';
+// Load the Google Analytics script
+function GoogleAnalyticsCtrl() {
+  // Add a Google Analytics script tag in the page head
+  addScript({
+    "src"   : getFirstURLChars() + "google-analytics.com/ga.js",
+    "onload": function () {
+      var pageTracker = _gat._getTracker("UA-12331844-1");
+      pageTracker._trackPageview();
+    }
+  });
 }
 
 
-function JanrainCtrl($scope) {
-  // Location Janrain JS file
-  $scope.rpxJsSrc = getFirstURLChars() + 'rpxnow.com/js/lib/rpx.js';
+// Load Janrain JS script
+function JanrainCtrl() {
+  // Add a Janrain JS script tag in the page head
+  addScript({
+    "src"   : getFirstURLChars() + "rpxnow.com/js/lib/rpx.js",
+    "onload": function () {
+      RPXNOW.overlay             = true;
+      RPXNOW.language_preference = 'en';
+    }
+  });
 }
 
 

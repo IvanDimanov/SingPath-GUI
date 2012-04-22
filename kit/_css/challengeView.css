@@ -27,7 +27,7 @@ td {
   margin: 0 auto;
 }
 table.__body {
-  background-image: url("../_images/greyBackground.jpg");
+  background-image: url("../../static/_images/backgrounds/grey.jpg");
   background-repeat: repeat-y;
   width: 100%;
   border: 0px solid blue;
@@ -66,7 +66,7 @@ div#loading {
 
 table.header {
   font-family: Verdana, Geneva, sans-serif;
-  background-image: url(../_images/02headerShadow01.jpg);
+  background-image: url("../../static/_images/02header_shadow01.jpg");
   background-repeat: no-repeat;
   margin: 0px;
   padding: 0px;
@@ -88,7 +88,7 @@ img.logo {
   margin-top: -4px;
 }
 .logIndetailsTop {
-  background-image: url(../_images/02homeLogin03.png);
+  background-image: url("../../static/_images/backgrounds/02home_login03.png");
   background-repeat: no-repeat;
   background-position: 0px 10px;
 }
@@ -140,7 +140,7 @@ td.logIndetailsNameText {
   background-repeat: no-repeat;
   vertical-align: bottom;
   padding-bottom: 9px;
-  background-image: url('../_images/homePage/inputLong.png');
+  background-image: url("../../static/_images/home_page/input_long.png");
   width: 315px;
   text-align: center;
 }
@@ -148,7 +148,7 @@ td.logIndetailsNameText {
 /* pageHeader box */
 
 table.pageHeader {
-  background-image: url(../_images/02headerShadow01.jpg);
+  background-image: url("../../static/_images/02header_shadow01.jpg");
   background-repeat: no-repeat;
   background-position: -1px -1px;
   width: 905px;
@@ -338,7 +338,7 @@ table.actionsBox td.sendLabel {
   font-size: 12px;
 }
 table.actionsBox td.send {
-  background-image: url('../_images/homePage/inputLong.png');
+  background-image: url("../../static/_images/home_page/input_long.png");
   width: 315px;
   border: 0px solid;
   font-weight: bold;
@@ -420,7 +420,7 @@ div#challengeLinks td.linkLabel {
   padding-top: 7px;
 }
 div#challengeLinks td.link {
-  background-image: url('../_images/homePage/inputLong.png');
+  background-image: url("../../static/_images/home_page/input_long.png");
   width: 315px;
   border: 0px solid;
   font-weight: bold;

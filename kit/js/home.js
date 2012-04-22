@@ -89,7 +89,7 @@ function ProfilePanelCtrl($scope, $resource) {
   
   
   // Load Player profile data
-  $scope.profileResource = $resource('../jsonapi/player_test').get(function(profile) {
+  $scope.profileResource = $resource('../jsonapi/player').get(function(profile) {
     // Copy the original profile data so we could display it in the popUp
     $scope.profilePopUp = profile;
     

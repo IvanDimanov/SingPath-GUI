@@ -20,7 +20,7 @@ td {
 table.__body {
   border: 0px solid blue;
   display: table;
-  background-image: url("../_images/greyBackground.jpg");
+  background-image: url("../../static/_images/backgrounds/grey.jpg");
   background-repeat: repeat-y;
 }
 tr.element > td {
@@ -70,7 +70,7 @@ tr.bottomBox > td {
 }
 
 .wrapper {
-  background-image: url("../_images/greyBackground.jpg");
+  background-image: url("../../static/_images/backgrounds/grey.jpg");
   background-position: center center;
   background-repeat: repeat-y;
 }
@@ -139,7 +139,7 @@ img.logo {
   margin-top: -4px;
 }
 .logIndetailsTop {
-  background-image: url(../_images/02homeLogin03.png);
+  background-image: url("../../static/_images/backgrounds/02homeLogin03.png");
   background-repeat: no-repeat;
   background-position: 0px 9px;
 }
@@ -191,7 +191,7 @@ td.logIndetailsNameText {
   background-repeat: no-repeat;
   vertical-align: bottom;
   padding-bottom: 10px;
-  background-image: url('../_images/homePage/inputLong.png');
+  background-image: url("../../static/_images/home_page/input_long.png");
   width: 315px;
   text-align: center;
 }
@@ -2512,7 +2512,7 @@ td {
 table.__body {
   border: 0px solid blue;
   display: table;
-  background-image: url("../_images/greyBackground.jpg");
+  background-image: url("../../static/_images/backgrounds/grey.jpg");
   background-repeat: repeat-y;
 }
 tr.element > td {
@@ -2562,7 +2562,7 @@ tr.bottomBox > td {
 }
 
 .wrapper {
-  background-image: url("../_images/greyBackground.jpg");
+  background-image: url("../../static/_images/backgrounds/grey.jpg");
   background-position: center center;
   background-repeat: repeat-y;
 }

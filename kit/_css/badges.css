@@ -24,7 +24,7 @@ td {
   overflow: hidden;
 }
 table.__body {
-  background-image: url("../_images/greyBackground.jpg");
+  background-image: url("../../static/_images/backgrounds/grey.jpg");
   background-repeat: repeat-y;
   width: 100%;
   border: 0px solid blue;
@@ -49,7 +49,7 @@ td.element2 {
 /* pageHeader box */
 
 table.pageHeader {
-  background-image: url(../_images/02headerShadow01.jpg);
+  background-image: url("../../static/_images/02header_shadow01.jpg");
   background-repeat: no-repeat;
   background-position: -1px -1px;
   width: 905px;

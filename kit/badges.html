@@ -20,9 +20,6 @@
   <script src="_js/jsonrender/common.js" type="text/javascript"></script>
   
   <script src="http://jquery-jsonp.googlecode.com/files/jquery.jsonp-2.1.4.min.js" type="text/javascript"></script>
-  <script type="text/javascript">
-		window.MENU = false;
-  </script>
 </head> 
 <body ng-controller="LoadPageCtrl">
   <div id="wrapper">
@@ -231,6 +228,6 @@ need to solve 10 questions to advance.<br>
   
   
   <!-- Google Analytics -->
-  <div ng-include src="'includes/googleAnalytics.html'"></div>
+  <div ng-controller="GoogleAnalyticsCtrl"></div>
 </body>
 </html>

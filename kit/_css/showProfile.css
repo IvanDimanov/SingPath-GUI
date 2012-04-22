@@ -1,7 +1,7 @@
 /* show profile */
 
 table.showProfile {
-  background-image: url(../_images/homePage/profileBoxBg.png);
+  background-image: url("../../static/_images/home_page/profile_box_bg.png");
   background-repeat: no-repeat;
   background-position: -11px -11px;
   width: 494px;
@@ -12,10 +12,10 @@ table.showProfile {
   display: inline-table;
 }
 table.showProfile[class ~= "professional"] {
-  background-image: url(../_images/homePage/profileProfessionalBoxBg.png);
+  background-image: url("../../static/_images/home_page/profile_professional_box_bg.png");
 }
 table.showProfile[class ~= "student"] {
-  background-image: url(../_images/homePage/profileStudentBoxBg.png);
+  background-image: url("../../static/_images/home_page/profile_student_box_bg.png");
 }
 table.showProfile tr.boxHeader {
   height: 22px;
