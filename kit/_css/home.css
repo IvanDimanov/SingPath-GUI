@@ -1,28 +1,32 @@
-.profileContainer,.badgesContainer,.challengesContainer,.rankingContainer{position:relative;padding:0;float:left;}
-.profileContainer .commonBtn,.badgesContainer .commonBtn,.challengesContainer .commonBtn,.rankingContainer .commonBtn{float:right;display:block;position:absolute;top:0;right:20px;margin:0;padding:0;}
-.profileContainer .commonBtn.big,.badgesContainer .commonBtn.big,.challengesContainer .commonBtn.big,.rankingContainer .commonBtn.big{font-size:13px}
-.profileContainer .commonBtn.small,.badgesContainer .commonBtn.small,.challengesContainer .commonBtn.small,.rankingContainer .commonBtn.small{font-size:10px}
-.profileContainer .labelContainer,.badgesContainer .labelContainer,.challengesContainer .labelContainer,.rankingContainer .labelContainer{float:left;position:absolute;margin:7px 0 0 1px;}
-.profileContainer .labelContainer .label,.badgesContainer .labelContainer .label,.challengesContainer .labelContainer .label,.rankingContainer .labelContainer .label{background-color:#7fa0b2;border-top-left-radius:10px;border-top-right-radius:0;border-bottom-right-radius:0;border-bottom-left-radius:0;-moz-border-radius-topleft:10px;-moz-border-radius-topright:0;-moz-border-radius-bottomright:0;-moz-border-radius-bottomleft:0;color:#fff;font-size:16px;font-weight:bold;line-height:20px;float:left;padding:1px 5px 0 14px}
-.profileContainer .labelContainer .curve,.badgesContainer .labelContainer .curve,.challengesContainer .labelContainer .curve,.rankingContainer .labelContainer .curve{background:url("../../static/_images/backgrounds/curve_small_top.png") no-repeat;float:right;width:29px;height:20px}
-.profileContainer .textContainer,.badgesContainer .textContainer,.challengesContainer .textContainer,.rankingContainer .textContainer{margin:25px 0 0 0;padding:0;}
-.profileContainer .textContainer .text,.badgesContainer .textContainer .text,.challengesContainer .textContainer .text,.rankingContainer .textContainer .text{font-size:15px;margin:0;padding:0}
-.profileContainer .textContainer,.badgesContainer .textContainer,.challengesContainer .textContainer,.rankingContainer .textContainer{background-repeat:no-repeat;text-align:left;}
-.profileContainer .textContainer .text,.badgesContainer .textContainer .text,.challengesContainer .textContainer .text,.rankingContainer .textContainer .text{padding-left:14px}
-.profileContainer{margin-left:9px;}
-.profileContainer.professional .textContainer{background:url("../../static/_images/home_page/profile_professional_box_small_cut.png") no-repeat}
-.profileContainer.student .textContainer{background:url("../../static/_images/home_page/profile_student_box_small_cut.png") no-repeat}
-.profileContainer .textContainer{width:499px;height:215px;}
-.profileContainer .textContainer .profileName{font-size:16px;font-weight:bold;color:#f7d3a4;text-align:center;line-height:32px}
-.profileContainer .textContainer .gravatar{border-top-left-radius:9px;border-top-right-radius:9px;border-bottom-right-radius:9px;border-bottom-left-radius:9px;-moz-border-radius-topleft:9px;-moz-border-radius-topright:9px;-moz-border-radius-bottomright:9px;-moz-border-radius-bottomleft:9px;float:left;margin:27px 0 -10px 0;width:95px;height:95px}
-.profileContainer .textContainer .text .imgWrapper{float:left;width:110px;}
-.profileContainer .textContainer .text .imgWrapper .country{margin:15px 0 0 15px}
-.profileContainer .textContainer .text .detailsWrapper .details{text-transform:capitalize;line-height:28px;margin-left:117px;padding-right:15px;}
-.profileContainer .textContainer .text .detailsWrapper .details .label{font-weight:bold;font-size:16px}
-.profileContainer .textContainer .text .detailsWrapper .details.center{text-align:center;margin-right:135px;padding:0}
+.profileContainer,.badgesContainer,.challengesContainer,.rankingContainer,.rankedPlayerPopUp{position:relative;padding:0;float:left;}
+.profileContainer .commonBtn,.badgesContainer .commonBtn,.challengesContainer .commonBtn,.rankingContainer .commonBtn,.rankedPlayerPopUp .commonBtn{float:right;display:block;position:absolute;top:0;right:20px;margin:0;padding:0;}
+.profileContainer .commonBtn.big,.badgesContainer .commonBtn.big,.challengesContainer .commonBtn.big,.rankingContainer .commonBtn.big,.rankedPlayerPopUp .commonBtn.big{font-size:13px}
+.profileContainer .commonBtn.small,.badgesContainer .commonBtn.small,.challengesContainer .commonBtn.small,.rankingContainer .commonBtn.small,.rankedPlayerPopUp .commonBtn.small{font-size:10px}
+.profileContainer .labelContainer,.badgesContainer .labelContainer,.challengesContainer .labelContainer,.rankingContainer .labelContainer,.rankedPlayerPopUp .labelContainer{float:left;position:absolute;margin:7px 0 0 1px;}
+.profileContainer .labelContainer .label,.badgesContainer .labelContainer .label,.challengesContainer .labelContainer .label,.rankingContainer .labelContainer .label,.rankedPlayerPopUp .labelContainer .label{background-color:#7fa0b2;border-top-left-radius:10px;border-top-right-radius:0;border-bottom-right-radius:0;border-bottom-left-radius:0;-moz-border-radius-topleft:10px;-moz-border-radius-topright:0;-moz-border-radius-bottomright:0;-moz-border-radius-bottomleft:0;color:#fff;font-size:16px;font-weight:bold;line-height:20px;float:left;padding:1px 5px 0 14px}
+.profileContainer .labelContainer .curve,.badgesContainer .labelContainer .curve,.challengesContainer .labelContainer .curve,.rankingContainer .labelContainer .curve,.rankedPlayerPopUp .labelContainer .curve{background:url("../../static/_images/backgrounds/curve_small_top.png") no-repeat;float:right;width:29px;height:20px}
+.profileContainer .textContainer,.badgesContainer .textContainer,.challengesContainer .textContainer,.rankingContainer .textContainer,.rankedPlayerPopUp .textContainer{margin:25px 0 0 0;padding:0;}
+.profileContainer .textContainer .text,.badgesContainer .textContainer .text,.challengesContainer .textContainer .text,.rankingContainer .textContainer .text,.rankedPlayerPopUp .textContainer .text{font-size:15px;margin:0;padding:0}
+.profileContainer .textContainer,.badgesContainer .textContainer,.challengesContainer .textContainer,.rankingContainer .textContainer,.rankedPlayerPopUp .textContainer{background-repeat:no-repeat;text-align:left;}
+.profileContainer .textContainer .text,.badgesContainer .textContainer .text,.challengesContainer .textContainer .text,.rankingContainer .textContainer .text,.rankedPlayerPopUp .textContainer .text{padding-left:14px}
+.profileContainer,.rankedPlayerPopUp{margin-left:9px;}
+.profileContainer.professional .textContainer,.rankedPlayerPopUp.professional .textContainer{background:url("../../static/_images/home_page/profile_professional_box_small_cut.png") no-repeat}
+.profileContainer.student .textContainer,.rankedPlayerPopUp.student .textContainer{background:url("../../static/_images/home_page/profile_student_box_small_cut.png") no-repeat}
+.profileContainer .textContainer,.rankedPlayerPopUp .textContainer{width:499px;height:215px;}
+.profileContainer .textContainer .profileName,.rankedPlayerPopUp .textContainer .profileName{font-size:16px;font-weight:bold;color:#f7d3a4;text-align:center;line-height:32px}
+.profileContainer .textContainer .gravatar,.rankedPlayerPopUp .textContainer .gravatar{border-top-left-radius:9px;border-top-right-radius:9px;border-bottom-right-radius:9px;border-bottom-left-radius:9px;-moz-border-radius-topleft:9px;-moz-border-radius-topright:9px;-moz-border-radius-bottomright:9px;-moz-border-radius-bottomleft:9px;float:left;margin:27px 0 -10px 0;width:95px;height:95px}
+.profileContainer .textContainer .text .imgWrapper,.rankedPlayerPopUp .textContainer .text .imgWrapper{float:left;width:110px;}
+.profileContainer .textContainer .text .imgWrapper .country,.rankedPlayerPopUp .textContainer .text .imgWrapper .country{margin:15px 0 0 15px}
+.profileContainer .textContainer .text .detailsWrapper .details,.rankedPlayerPopUp .textContainer .text .detailsWrapper .details{text-transform:capitalize;line-height:28px;margin-left:117px;padding-right:15px;}
+.profileContainer .textContainer .text .detailsWrapper .details .label,.rankedPlayerPopUp .textContainer .text .detailsWrapper .details .label{font-weight:bold;font-size:16px}
+.profileContainer .textContainer .text .detailsWrapper .details.center,.rankedPlayerPopUp .textContainer .text .detailsWrapper .details.center{text-align:center;margin-right:135px;padding:0}
+.rankedPlayerPopUp{float:none;}
+.rankedPlayerPopUp .textContainer{width:499px !important;height:215px !important;}
+.rankedPlayerPopUp .textContainer .text{padding:6px 0 0 14px !important}
 .badgesContainer,.challengesContainer,.rankingContainer{margin:24px 0 1px 2px;}
 .badgesContainer .textContainer,.challengesContainer .textContainer,.rankingContainer .textContainer{background:url("../../static/_images/backgrounds/common_small_box.png") no-repeat;width:391px;height:190px;}
-.badgesContainer .textContainer .text,.challengesContainer .textContainer .text,.rankingContainer .textContainer .text{text-align:center;padding-top:10px}
+.badgesContainer .textContainer .text,.challengesContainer .textContainer .text,.rankingContainer .textContainer .text{text-align:center;padding-top:10px;}
+.badgesContainer .textContainer .text .popUpLink,.challengesContainer .textContainer .text .popUpLink,.rankingContainer .textContainer .text .popUpLink{cursor:pointer}
 .badgesContainer .textContainer .text img{cursor:pointer;}
 .badgesContainer .textContainer .text img.first{margin:0 40%}
 .rankingContainer .textContainer{background:url("../../static/_images/home_page/ranking.png") no-repeat;width:389px;height:187px;}

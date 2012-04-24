@@ -3,10 +3,34 @@
   "use strict";
   
   
+  // Common function to get all player panel profile data
+  function getPlayerPanelDate(profile) {
+    var profilePanel = profile;
+    
+    // Set a maximum of visible chars for the panel variable
+    profilePanel.locationClamp = clampString(profile.location, 35);
+    
+    // Sets a maximum of 30 total chars that the hole array elements cannot exceed
+    profilePanel.visibleTags = clampArrayByStringLength(profile.tags, 30);
+    
+    // Set the panel top status label
+    profilePanel.professionalLabel = profile.professional*1 ? 'professional' : 'student';
+    
+    // Country and Gender Flags
+    profilePanel.countrySrc = profile.countrySrc || '../static/flags/'+ profile.countryCode.toLowerCase() +'_on.png';
+    profilePanel.genderSrc  = '../kit/_images/commonButtons/genderIcon'+ profile.gender.capitalFirstLetter() +'_off.png';
+    
+    // About
+    // Set a maximum of visible chars for the panel variable
+    profilePanel.aboutClapm = clampString(profile.about, 140);
+    
+    return profilePanel;
+  }
+  
+  
   window.ProfilePanelCtrl = function ($scope, $resource) {
     $scope.containerClass = "profileContainer";
     $scope.label          = "Profile";
-    $scope.contentClass   = "profile";
     $scope.btn            = {
       "href" : "#/edit-profile",
       "title": "Edit Profile",
@@ -37,6 +61,9 @@
       
       // General popUp display class
       "class": "hide",
+      
+      // The CSS class of the popUp middle content
+      "contentClass": "profile",
       
       // Shown on the top-left
       "label": "Edit Profile",
@@ -99,7 +126,7 @@
       
       // The logic behind having a profile clone for the panel is not to change any
       // of the data in the panel before the user save his own changes with the popUp 'Save Details' btn
-      $scope.profile = clone(profile);
+      $scope.profilePanel = clone(getPlayerPanelDate(profile));
       
       
       // Setting a global user id
@@ -122,9 +149,6 @@
       $scope.locationRegExp   = new RegExp('^.{'+ locationMinChars +','+ locationMaxChars +'}$');
       $scope.locationErrorMsg = 'Your location must be described in between '+ locationMinChars +' and '+ locationMaxChars +' characters';
       
-      // Set a maximum of visible chars for the panel variable
-      $scope.profile.locationClamp = clampString(profile.location, 35);
-      
       
       // Gender options
       $scope.profilePopUp.genders = ['secret', 'male', 'female'];
@@ -138,9 +162,6 @@
       
       
       // Tags
-      // Sets a maximum of 30 total chars that the hole array elements cannot exceed
-      $scope.visibleTags = clampArrayByStringLength($scope.profilePopUp.tags, 30);
-      
       // Gets all tags and set them in a single string
       $scope.profilePopUp.tagsAsText = $scope.profilePopUp.tags.join(', ');
       
@@ -154,21 +175,9 @@
       $scope.profilePopUp.professionalOption = profile.professional*1;
       professionalStatus                     = $scope.profilePopUp.professionalOption ? 'professional' : 'student';
       
-      // Set the panel top status label
-      $scope.profile.professionalLabel = professionalStatus;
-      
       // Specify the panel background image regarding the professional status
       $scope.containerClass += " " + professionalStatus;
       
-      
-      // Country and Gender Flags
-      $scope.profile.countrySrc = '../static/flags/'+ profile.countryCode.toLowerCase() +'_on.png';
-      $scope.profile.genderSrc  = '../kit/_images/commonButtons/genderIcon'+ profile.gender.capitalFirstLetter() +'_off.png';
-      
-      
-      // About
-      // Set a maximum of visible chars for the panel variable
-      $scope.profile.aboutClapm = clampString(profile.about, 140);
       
       // Any text above aboutTextMax chars will be invalid
       aboutTextMax         = 1000;
@@ -228,7 +237,7 @@
   window.RankingPanelCtrl = function ($scope, $resource) {
     $scope.containerClass = "rankingContainer";
     
-    $resource('../jsonapi/ranking').get(function (ranking) {
+    $resource('../jsonapi/fullRankingPlayers').get(function (ranking) {
       var i, player, rank;
       
       $scope.label = ranking.path_description + " Rankings";
@@ -257,9 +266,49 @@
         };
         
         // Setting the max chars per player name
-        player.name = clampString(player.name, 20);
+        player.fullName = player.name;
+        player.name     = clampString(player.fullName, 20);
       }
     });
+    
+    
+    // Load the Ranked Player popUp with a player date indicated from the income index
+    $scope.showRankedPlayer = function (index) {
+      var player = clone($scope.players[index]);
+      
+      // Load popUp fields
+      player.nickname   = player.fullName;
+      player.gravatar   = player.gravatar.src;
+      player.countrySrc = player.playerCountryFlagURL;
+      
+      // Get a comman usable profile data
+      $scope.profilePanel = getPlayerPanelDate(player);
+      
+      // Show the loaded popUp
+      $scope.popUp.class = 'show';
+      
+      // Set the popUp background
+      $scope.popUp.contentClass = $scope.popUp.contentClassMain +" "+ $scope.profilePanel.professionalLabel.toLowerCase();
+    }
+    
+    
+    // Set popUp details
+    $scope.popUp = {
+      // This name is used for switching between all popUps in the common_pop_up.html include
+      "name": "rankedPlayer",
+      
+      // The CSS class of the popUp middle content
+      "contentClassMain": "rankedPlayerPopUp",
+      
+      // General popUp display class
+      "class": "hide",
+      
+      // Shown on the top-left
+      "label": "Profile",
+      
+      // Indicate no footer btns
+      "btns": []
+    };
   };
   
 }())

@@ -4,7 +4,7 @@
     
     <!-- Top-Left Label -->
     <!-- Note: ng-click="$event.stopPropagation()" prevents the click event from bubbling up to the DOM tree -->
-    <div ng-class="'mainContent ' + contentClass" ng-click="$event.stopPropagation()">
+    <div ng-class="'mainContent ' + popUp.contentClass" ng-click="$event.stopPropagation()">
       <div class="labelContainer">
         <div class="label">
           {{popUp.label}}
@@ -20,6 +20,9 @@
         
         <!-- Edit Profile PopUp -->
         <div ng-include ng-switch-when="editDetails" src="'includes/edit_profile_pop_up.html'"></div>
+        
+        <!-- Ranked Player PopUp -->
+        <div ng-include ng-switch-when="rankedPlayer" src="'includes/common_profile_panel.html'"></div>
         
         <!-- New Badge PopUp -->
         <div ng-include ng-switch-when="newBadge" src="'includes/new_badge_pop_up.html'"></div>

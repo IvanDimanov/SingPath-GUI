@@ -164,14 +164,21 @@ function clone(obj) {
   // Chech if the income is an object or primitive value
   if (typeof(obj) == "object") {
     
-    // Recursive loop through all object elements
-    for (tempObj in obj) {
-      cloneObj[tempObj] = clone(obj[tempObj]);
+    // Check if the obj is an Array or regular Object
+    if (obj instanceof Array) {
+      return obj.slice(0);
+      
+    } else {
+      
+      // Recursive loop through all object elements
+      for (tempObj in obj) {
+        cloneObj[tempObj] = clone(obj[tempObj]);
+      }
+      
+      // Return the clone object
+      return cloneObj;
     }
-    
-    // Return the clone object
-    return cloneObj;
-    
+  
   } else {
     
     // Return the primitive value
