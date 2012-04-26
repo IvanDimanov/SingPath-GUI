@@ -92,12 +92,15 @@
               $scope.popUp.btns[0].label = 'Saving...';
               $scope.popUp.btns[0].class = 'on';
               
+              // Prevent a multiple saving before we have a server response
+              $scope.popUp.saving = true;
+              
               // Saving is disabled coz so far the server cannot handle POST requests
-              // $scope.profileResource.$save();
-
-              $scope.popUp.btns[0].label = 'Save Details';
-              $scope.popUp.btns[0].class = '';
-              $scope.popUp.saving        = false;
+              $scope.profileResource.$save(function () {
+                $scope.popUp.btns[0].label = 'Save Details';
+                $scope.popUp.btns[0].class = '';
+                $scope.popUp.saving        = false;
+              });
             }
           }
         },

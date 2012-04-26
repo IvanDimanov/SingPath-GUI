@@ -226,12 +226,12 @@ function addEvent(nodeElement, event, callback, useCaptureOrder) {
  * 
  * @return length the total number of elements in the object
  */
-Object.prototype.length = function() {
+ObjectLength = function (obj) {
   var tempObj = null,
       length  = 0;
   
   // Sum all elements in the Object
-  for (tempObj in this) {
+  for (tempObj in obj) {
     // Don't count the counter itself
     if (tempObj != 'length') {
       length++;

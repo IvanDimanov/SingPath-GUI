@@ -23,7 +23,7 @@ function LogAccessCtrl($resource) {
     logAccess.date = new Date().getTime();
     
     // Saving will be available once we create the back-end server to response the POST requests
-    // logAccess.$save();
+    logAccess.$save();
   });
 }
 
