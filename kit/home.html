@@ -26,11 +26,21 @@
 	
   <script src="_js/jsonrender/common.js" type="text/javascript"></script>
 	<script src="_js/jsonrender/home.js" type="text/javascript"></script>
+  
+  <script src="_js/jquery-1.7.2.js" type="text/javascript"></script>
+  <script src="../gae_bingo/static/js/gae_bingo.js" type="text/javascript" charset="utf-8"></script>
+  
+  <script type="text/javascript">
+    
+    gae_bingo.ab_test("click-button-from-splash", { "top-half" : 50, "bottom-half" : 50 }, ["SingPath Logo", "Sign In", "Home", "Shop", "Play", "Splash", "About Us", "How to Use", "Contribution", "Tournament", "Ranking", "facebook", "twitter", "home", "about us", "how to use", "terms of use", "contribution", "feedback", "contact us", "shop", "Sign out", "gr8ph1cs Logo", "editDetails PopUp closed", "editDetails Save Details", "editDetails Invalid"]);
+    
+  </script>
 </head>
 <body ng-controller="LoadPageCtrl">
   <div id="wrapper" ng-controller="HomeCtrl">
     <!-- Include Page Header: Logo, Login menu, head menu option -->
     <div ng-include src="'includes/pageHeader.html'"></div>
+    
     
     <!-- Custom page content -->
     <!-- Print common panel with custom loaded data from ProfilePanelCtrl() -->

@@ -1,7 +1,7 @@
 /* CSS rules for home.html */
 @import stylus_functions
 
-.profileContainer, .badgesContainer, .challengesContainer, .rankingContainer
+.profileContainer, .badgesContainer, .challengesContainer, .rankingContainer, .rankedPlayerPopUp
   commonBGContainer()
   
   float left
@@ -14,13 +14,20 @@
       padding-left 14px
 
 
-.profileContainer
+.profileContainer, .rankedPlayerPopUp
   margin-left 9px
   
+  &.professional
+    .textContainer
+      background url("../../static/_images/home_page/profile_professional_box_small_cut.png") no-repeat
+  
+  &.student
+    .textContainer
+      background url("../../static/_images/home_page/profile_student_box_small_cut.png") no-repeat
+  
   .textContainer
-    background url("../../static/_images/home_page/profile_student_box_small_cut.png") no-repeat
-    width      499px
-    height     215px
+    width  499px
+    height 215px
     
     .profileName
       font-size   16px
@@ -61,6 +68,17 @@
             padding      0px
 
 
+.rankedPlayerPopUp
+  float none
+  
+  .textContainer
+    width  499px !important
+    height 215px !important
+    
+    .text
+      padding 6px 0px 0px 14px !important
+
+
 .badgesContainer, .challengesContainer, .rankingContainer
   margin 24px 0px 1px 2px
   
@@ -72,6 +90,9 @@
     .text
       text-align  center
       padding-top 10px
+      
+      .popUpLink
+        cursor pointer
 
 
 .badgesContainer

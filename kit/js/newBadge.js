@@ -58,6 +58,9 @@
           // General popUp display class
           "class": "show",
           
+          // The CSS class of the popUp middle content
+          "contentClass": "newBadge",
+          
           // Shown on the top-left
           "label": "Badge Information",
           
@@ -112,9 +115,6 @@
   window.newBadgePopUpCtrl = function ($scope) {
     // Share the popUp body scope
     sharedScope.popUp = $scope;
-    
-    // Main content class
-    $scope.contentClass = "newBadge";
   };
   
   
