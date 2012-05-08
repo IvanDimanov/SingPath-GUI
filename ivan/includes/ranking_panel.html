@@ -1,0 +1,23 @@
+<!-- Prints all Rankings -->
+<div class="text">
+  <div ng-repeat="player in players" class="player">
+    <img ng-src="{{player.rank.src}}" class="rank" alt="{{player.rank.alt}}" />
+    
+    <!-- Link to the Ranked Player popUp -->
+    <div class="popUpLink" ng-click="showRankedPlayer($index)">
+      <img ng-src="{{player.gravatar.src}}" class="gravatar" alt="{{player.gravatar.alt}}" />
+      <div class="name" ng-bind="player.name"></div>
+    </div>
+    
+    <div class="solvedNum" ng-bind="player.solved_num"></div>
+    <img ng-src = "{{player.playerCountryFlagURL}}" class="flag" />
+    <img ng-src = "{{player.highestBadge.url}}"     class="highestBadge"
+      onclick = "alert('{{player.highestBadge.description}}')"
+      title   = "{{player.highestBadge.description}}"
+      alt     = "{{player.highestBadge.description}}"
+    />
+  </div>
+</div>
+
+<!-- Include a common popUp for each ranked player -->
+<div ng-include src="'includes/common_pop_up.html'"></div>

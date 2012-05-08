@@ -1,0 +1,11 @@
+a{text-decoration:none;}
+a:link{color:#ccc}
+a:visited{color:#999}
+a:hover{color:#f7d3a4}
+a:active{color:#333}
+.commonBtn .left{background:url("../../static/_images/common_buttons/parts/left.png") repeat-x;float:left;width:8px;height:23px}
+.commonBtn .middle{background:url("../../static/_images/common_buttons/parts/middle.png") repeat-x;font-family:Arial;color:#4f7984;line-height:21px;float:left;height:23px;padding:0 5px}
+.commonBtn .right{background:url("../../static/_images/common_buttons/parts/right.png") no-repeat;float:left;width:8px;height:23px}
+.commonBtn:hover .left{background:url("../../static/_images/common_buttons/parts/left-hover.png") no-repeat}
+.commonBtn:hover .middle{background:url("../../static/_images/common_buttons/parts/middle-hover.png") repeat-x;color:#fff}
+.commonBtn:hover .right{background:url("../../static/_images/common_buttons/parts/right-hover.png") no-repeat}

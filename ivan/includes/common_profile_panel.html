@@ -1,0 +1,45 @@
+<!-- Prints an HTML Player Panel -->
+<div class="profileName" ng-bind="profilePanel.nickname"></div>
+
+<div class="text">
+  <div class="imgWrapper">
+    <img ng-src="{{profilePanel.gravatar}}"   class="gravatar" />
+    <img ng-src="{{profilePanel.countrySrc}}" class="country"  />
+    <img ng-src="{{profilePanel.genderSrc}}"  class="gender"   />
+  </div>
+
+  <div class="detailsWrapper">
+    <div class="details center">
+      <span class="label" ng-bind="profilePanel.professionalLabel"></span>
+    </div>
+    
+    <div class="details">
+      <span class="label">
+        Location:
+      </span>
+      <span ng-bind="profilePanel.locationClamp"></span>
+    </div>
+    
+    <div class="details">
+      <span class="label">
+        Tags:
+      </span>
+        <a ng-repeat = "tag in profilePanel.visibleTags"
+          ng-bind = "tag"
+          ng-src  = "/kit/ranking.html?tag={{tag}}"
+          title   = "Ranking tag: {{tag}}"
+        ></a>
+        
+        <span ng-switch on="profilePanel.visibleTags.length != profilePanel.tags.length">
+          <span ng-switch-when="true">...<span>
+        </span>
+    </div>
+    
+    <div class="details" ng-click="testClick(1, $event)">
+      <span class="label">
+        About Me:
+      </span>
+      <span ng-bind="profilePanel.aboutClapm"></span>
+    </div>
+ </div>
+</div>
