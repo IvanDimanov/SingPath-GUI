@@ -26,16 +26,16 @@
       </span>
         <a ng-repeat = "tag in profilePanel.visibleTags"
           ng-bind = "tag"
-          ng-src  = "/kit/ranking.html?tag={{tag}}"
+          ng-src  = "/ranking.html?tag={{tag}}"
           title   = "Ranking tag: {{tag}}"
         ></a>
         
-        <span ng-switch on="profilePanel.visibleTags.length != profilePanel.tags.length">
+        <span class="moreTagsMark" ng-switch on="profilePanel.visibleTags.length != profilePanel.tags.length">
           <span ng-switch-when="true">...<span>
         </span>
     </div>
     
-    <div class="details" ng-click="testClick(1, $event)">
+    <div class="details">
       <span class="label">
         About Me:
       </span>

@@ -1,6 +1,6 @@
 describe('Additinal test from Matias', function() {
 	  //index.html
-	  it('Testing kit/index.html', function() {
+	  it('Testing index.html', function() {
 	    browser().navigateTo('../../index.html');
 	    //stats box
 	    expect(element('#rankStatsBoxText>p:first>span').text()).toBe('4306');
@@ -8,7 +8,7 @@ describe('Additinal test from Matias', function() {
 	    expect(element('#rankStatsBoxText>p:eq(2)>span').text()).toBe('Python');
 	  });
 	  //badges.html
-	  it('Testing kit/badges.html', function() {
+	  it('Testing badges.html', function() {
 		    browser().navigateTo('../../badges.html');
 		    
         //yourbadgesBoxTop
@@ -57,7 +57,7 @@ describe('Additinal test from Matias', function() {
 		    expect(element("#yourPathBadgesBox > img:last").attr('src')).toBe("../static/badges/ruby/r009_off.png");
 	  });
 	  
-	  it('Testing kit/challengeBoard.html', function() {
+	  it('Testing challengeBoard.html', function() {
 	      browser().navigateTo('../../challengeboard.html');
 	      expect(browser().location().hash()).toBe('');
 	      expect(element('#challenge>tbody>tr:first>td[class$="name"]>a').text()).toBe("Find the sum of the first 100 prime numbers.");
@@ -65,7 +65,7 @@ describe('Additinal test from Matias', function() {
 
 	  });
 	  
-	  it('Testing kit/ranking.html', function() {
+	  it('Testing ranking.html', function() {
 	      browser().navigateTo('../../ranking.html');
 	      expect(browser().location().hash()).toBe('');
 	      

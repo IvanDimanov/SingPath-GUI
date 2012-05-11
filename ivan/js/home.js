@@ -18,7 +18,7 @@
     
     // Country and Gender Flags
     profilePanel.countrySrc = profile.countrySrc || '../static/flags/'+ profile.countryCode.toLowerCase() +'_on.png';
-    profilePanel.genderSrc  = '../kit/_images/commonButtons/genderIcon'+ profile.gender.capitalFirstLetter() +'_off.png';
+    profilePanel.genderSrc  = '../static/_images/common_buttons/gender_icon_'+ profile.gender.toLowerCase() +'_off.png';
     
     // About
     // Set a maximum of visible chars for the panel variable
@@ -204,7 +204,7 @@
     if(window.USER.id) {
       loadUserBadges(window.USER.id);
     } else {
-      $resource('../jsonapi/player_test').get(function(profile) {
+      $resource('../jsonapi/player').get(function(profile) {
         // Setting a global user id
         window.USER.id = profile.player_id;
         

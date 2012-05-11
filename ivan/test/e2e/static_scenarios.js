@@ -7,54 +7,54 @@ function log(message) {
 describe('kit', function() {
   pauseAll = false;
   
-  it('Testing kit/home.html', function() {
+  it('Testing home.html', function() {
       browser().navigateTo('../../home.html');
       expect(browser().location().hash()).toBe('');
-      //expect(browser().location().path()).toBe('/kit/home.html');
+      //expect(browser().location().path()).toBe('/home.html');
       //expect(element('#footer a:nth-child(1)').text()).toBe('home');
       if (pauseAll) pause();
       //pause();
   });
 
-  it('Testing kit/aboutUs.html', function() {
+  it('Testing aboutUs.html', function() {
       browser().navigateTo('../../aboutUs.html');
       expect(browser().location().hash()).toBe('');
-      //expect(browser().location().path()).toBe('/kit/aboutUs.html');
+      //expect(browser().location().path()).toBe('/aboutUs.html');
       //expect(element('#footer a:nth-child(1)').text()).toBe('home');
       if (pauseAll) pause();
       //pause();
   });
  
-  it('Testing kit/contactUs.html', function() {
+  it('Testing contactUs.html', function() {
       browser().navigateTo('../../contactUs.html');
       expect(browser().location().hash()).toBe('');
-      //expect(browser().location().path()).toBe('/kit/contactUs.html');
+      //expect(browser().location().path()).toBe('/contactUs.html');
       //expect(element('#footer a:nth-child(1)').text()).toBe('home');
       if (pauseAll) pause();
   });
 
-  it('Testing kit/tournament.html', function() {
+  it('Testing tournament.html', function() {
       browser().navigateTo('../../tournament.html');
       expect(browser().location().hash()).toBe('');
-      //expect(browser().location().path()).toBe('/kit/tournament.html');
+      //expect(browser().location().path()).toBe('/tournament.html');
       //expect(element('#footer a:nth-child(1)').text()).toBe('home');
       if (pauseAll) pause();
       //pause();
   });
 
-  it('Testing kit/challengeBoard.html', function() {
+  it('Testing challengeBoard.html', function() {
       browser().navigateTo('../../challengeBoard.html');
       expect(browser().location().hash()).toBe('');
-      //expect(browser().location().path()).toBe('/kit/challengeBoard.html');
+      //expect(browser().location().path()).toBe('/challengeBoard.html');
       //expect(element('#footer a:nth-child(1)').text()).toBe('home');
       if (pauseAll) pause();
       //pause();
   });
   
-  it('Testing kit/badges.html', function() {
+  it('Testing badges.html', function() {
       browser().navigateTo('../../badges.html');
       expect(browser().location().hash()).toBe('');
-      //expect(browser().location().path()).toBe('/kit/badges.html');
+      //expect(browser().location().path()).toBe('/badges.html');
       //expect(element('#footer a:nth-child(1)').text()).toBe('home');
       if (pauseAll) pause();
       //pause();
@@ -66,15 +66,16 @@ describe('kit', function() {
             browser().navigateTo('../../home.html');
         });
 
-        it('Testing kit/home.html', function() {
+        it('Testing home.html', function() {
             browser().navigateTo('../../home.html');
             expect(browser().location().hash()).toBe('');
-            //expect(browser().location().path()).toBe('/kit/home.html');
+            //expect(browser().location().path()).toBe('/home.html');
             //expect(element('#footer a:nth-child(1)').text()).toBe('home');
             //expect(element('div:eq(0)').text()).toEqual('something');
             expect(element('#userMenu .nickname').text()).toBe('Mark Zuckerberg');
-
-            expect(element('#levels_tr_10030 td:nth-child(2)').text()).toBe('123/257');
+            
+            // To be Angularized
+            // expect(element('#levels_tr_10030 td:nth-child(2)').text()).toBe('123/257');
             element('.rolls').click();
 
             //expect(element('#editProfileName name').text()).toBe('Testing');
@@ -88,14 +89,14 @@ describe('kit', function() {
 
 describe('Tests From SergeyGalenko', function() {
 
-  it('Testing kit/tournament.html', function() {
+  it('Testing tournament.html', function() {
       browser().navigateTo('../../tournament.html');
       element('#viewRanking .viewRankingButton').click();
       //This click is not working
       //expect(element('#tourHeadingTextTitle').text()).toBe('PyCon 2012'); // on tournamentRanking.html?tournamentID=11288841 page?
   });
   
-  it('Testing kit/tournamentRanking.html?tournamentID=11288841', function(){
+  it('Testing tournamentRanking.html?tournamentID=11288841', function(){
     browser().navigateTo('../../tournamentRanking.html?tournamentID=11288841');
     expect(element('#levMBText').text()).toBe('PyCon 2012 Results'); 
 

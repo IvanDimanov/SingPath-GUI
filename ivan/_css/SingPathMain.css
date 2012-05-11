@@ -2112,19 +2112,19 @@ table.pager {
 
 #wrapper { white-space: normal; padding: 0px; height: 100%; width: 906px; left: auto; top: 0px; right: auto; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #4F7984; display: block; background: url("../../static/_images/backgrounds/grey.jpg") repeat-y fixed center top; margin: 0px auto; clear: both; overflow: hidden; }
 #wrapper  #mainHeader{ font-family: Verdana, Geneva, sans-serif; margin: 0px; padding: 0px; height: 67px; width: 906px; position: relative; background: #FFF url(../_images/landingPages/indexPage/01landingPageheader.jpg) no-repeat; left: 0px; top: 0px; }
-#logo{ background-image: url(../_images/landingPages/landingPageButtons/singpathLogo_off.png); cursor: pointer; display: block; position: relative; left: 9px; top: 9px; width: 169px; height: 46px; margin: 0px; padding: 0px; }
-#logo:hover, #logo.hover { background-image: url(../_images/landingPages/landingPageButtons/singpathLogo_on.png); }
+#logo{ background-image: url(../../static/_images/landing_pages/landing_page_buttons/singpath_logo_off.png); cursor: pointer; display: block; position: relative; left: 9px; top: 9px; width: 169px; height: 46px; margin: 0px; padding: 0px; }
+#logo:hover, #logo.hover { background-image: url(../../static/_images/landing_pages/landing_page_buttons/singpath_logo_on.png); }
 #userMenu, #logInBox{ margin: 0px; height: 30px; width: 460px; position: relative; float: right; font-weight: bold; color: #4F7984; font-size: 12px; padding: 0px; right: 20px; bottom: 18px; }
 #logInBox .commonBtn, #userMenu .commonBtn{ position: relative; margin: 2px 0px 0px 329px; }
 #logInBox .commonBtn .middle, #userMenu .commonBtn .middle{ font-size: 15px; text-shadow: 0px 1px 3px #AAA; line-height: 20px; padding: 0px 20px; }
 .messageBox , #userMenu .nickname{ margin: 0px; padding: 10px 0px 0px 3px; height: 30px; width: 300px; position: relative; float: left; background: url(../_images/landingPages/indexPage/messageBox.png) no-repeat; font-weight: bold; color: #4F7984; font-size: 12px; left: 10px; top: -4px; text-align: center; }
-#homeButton, #mainHeader  .homeBtn{ background-image: url(../_images/landingPages/landingPageButtons/houseProfile_off.png); background-repeat: no-repeat; margin: 0px; padding: 0px; height: 40px; width: 45px; position: relative; float: left; top: -5px; left: 0px; }
-#homeButton:hover, #userMenu .homeBtn:hover, #homeButton.hover,  #userMenu .homeBtn.hover { background-image: url(../_images/landingPages/landingPageButtons/houseProfile_on.png); }
+#homeButton, #mainHeader  .homeBtn{ background-image: url(../../static/_images/landing_pages/landing_page_buttons/house_profile_off.png); background-repeat: no-repeat; margin: 0px; padding: 0px; height: 40px; width: 45px; position: relative; float: left; top: -5px; left: 0px; }
+#homeButton:hover, #userMenu .homeBtn:hover, #homeButton.hover,  #userMenu .homeBtn.hover { background-image: url(../../static/_images/landing_pages/landing_page_buttons/house_profile_on.png); }
 .gravatar { margin: 0px; padding: 0px; height: 40px; width: 45px; position: relative; float: left; top: -6px; left: 7px; }
 
 #wrapper #mainHeader #nameBox{ margin: 0px; padding: 8px 0px 0px; height: 30px; width: 300px; position: relative; float: left; background: url(../_images/landingPages/indexPage/messageBox.png) no-repeat; font-weight: bold; color: #4F7984; font-size: 14px; left: 15px; top: -3px; text-align: center; }
-#userMenu .shopBtn{ background-image: url(../_images/landingPages/landingPageButtons/shoppingTrolley_off.png); background-repeat: no-repeat; margin: 0px; padding: 0px; height: 40px; width: 45px; position: relative; float: right; right: 5px; top: -5px; }
-#userMenu .shopBtn:hover, #userMenu .shopBtn.hover{ background-image: url(../_images/landingPages/landingPageButtons/shoppingTrolley_on.png); }
+#userMenu .shopBtn{ background-image: url(../../static/_images/landing_pages/landing_page_buttons/shopping_trolley_off.png); background-repeat: no-repeat; margin: 0px; padding: 0px; height: 40px; width: 45px; position: relative; float: right; right: 5px; top: -5px; }
+#userMenu .shopBtn:hover, #userMenu .shopBtn.hover{ background-image: url(../../static/_images/landing_pages/landing_page_buttons/shopping_trolley_on.png); }
 #wrapper #shadowUnderBar { color: #FFF; padding: 0px; width: 906px; position: relative; top: -10px; right: 0px; font-size: 10px; margin: 0px; height: 5px; clear: none; float: left; background: url(../_images/homePage/barShadow.png) no-repeat; }
 
 #menuOptions{ color: #FFF; padding: 0px; width: 906px; position: relative; top: -9px; right: 0px; font-size: 16px; margin: 0px; height: 40px; clear: none; float: left; background: url(../_images/landingPages/indexPage/menu_BarBlue.png) no-repeat; z-index: 2; }
@@ -2154,8 +2154,8 @@ table.pager {
 #wrapper #landingImage  #menuOptions #menuOptionsText{ color: #FFF; padding: 0px; float: right; width: 750px; position: relative; font-size: 14px; background-repeat: no-repeat; margin: 0px; height: 25px; top: 7px; right: 0px; 
 }
 #landingImageTVIcon  { display: block; position: relative; top: 140px; left: 20px; width: 150px; margin: 0px; padding: 0px; }
-#landingImageTVIcon  .tvIcon  { background-image: url(../_images/landingPages/landingPageButtons/television_off.png); background-repeat: no-repeat; width: 150px; height: 160px; }
-#landingImageTVIcon .tvIcon:hover, #landingImageTVIcon .tvIcon.hover, #landingImageTVIcon:hover .tvIcon, #landingImageTVIcon.hover .tvIcon { background-image: url(../_images/landingPages/landingPageButtons/television_on.png); }
+#landingImageTVIcon  .tvIcon  { background-image: url(../../static/_images/landing_pages/landing_page_buttons/television_off.png); background-repeat: no-repeat; width: 150px; height: 160px; }
+#landingImageTVIcon .tvIcon:hover, #landingImageTVIcon .tvIcon.hover, #landingImageTVIcon:hover .tvIcon, #landingImageTVIcon.hover .tvIcon { background-image: url(../../static/_images/landing_pages/landing_page_buttons/television_on.png); }
 
 #wrapper #landingImage #statsTextBox{ margin: 0px; padding: 0px; height: 253px; width: 365px; background: url(../_images/landingPages/indexPage/statisticBox.png) no-repeat; float: right; right: 0px; position: relative; clear: none; bottom: 112px; }
 #wrapper #landingImage #statsTextBox #statsTextBoxTitleTop{ font-weight: bold; color: #FFFFFF; border: 0px none #FFF100; margin: 0px; padding: 0px; text-align: left; float: left; height: 25px; width: 300px; position: relative; left: 20px; top: 10px; font-size: 16px; }
@@ -2178,10 +2178,10 @@ table.pager {
 #friendsTextBoxtextSocial { margin: 0px; padding: 17px 15px 7px 5px; height: 35px; width: 322px; position: relative; left: 10px; top: 2px; float: left; background-repeat: no-repeat; font-weight: normal; text-align: right; color: #517A83; border-top: none; border-right: none; border-bottom: none; border-left: none; }
 
 #friendsTextBoxtextSocial .text { line-height: 30px; }
-#friendsTextBoxtextSocial .facebook { background-image: url(../_images/landingPages/landingPageButtons/socialButtonsFacebook_off.png); background-repeat: no-repeat; display: block; float: right; width: 36px; height: 29px; margin-left: 10px; }
-#friendsTextBoxtextSocial .facebook:hover, #friendsTextBoxtextSocial .facebook.hover { background-image: url(../_images/landingPages/landingPageButtons/socialButtonsFacebook_on.png); }
-#friendsTextBoxtextSocial .twitter { background-image: url(../_images/landingPages/landingPageButtons/socialButtonsTwitter_off.png); background-repeat: no-repeat; display: block; float: right; width: 36px; height: 29px; margin-left: 5px; }
-#friendsTextBoxtextSocial .twitter:hover, #friendsTextBoxtextSocial .twitter.hover { background-image: url(../_images/landingPages/landingPageButtons/socialButtonsTwitter_on.png); }
+#friendsTextBoxtextSocial .facebook { background-image: url(../../static/_images/landing_pages/landing_page_buttons/social_buttons_facebook_off.png); background-repeat: no-repeat; display: block; float: right; width: 36px; height: 29px; margin-left: 10px; }
+#friendsTextBoxtextSocial .facebook:hover, #friendsTextBoxtextSocial .facebook.hover { background-image: url(../../static/_images/landing_pages/landing_page_buttons/social_buttons_facebook_on.png); }
+#friendsTextBoxtextSocial .twitter { background-image: url(../../static/_images/landing_pages/landing_page_buttons/social_buttons_twitter_off.png); background-repeat: no-repeat; display: block; float: right; width: 36px; height: 29px; margin-left: 5px; }
+#friendsTextBoxtextSocial .twitter:hover, #friendsTextBoxtextSocial .twitter.hover { background-image: url(../../static/_images/landing_pages/landing_page_buttons/social_buttons_twitter_on.png); }
 
 #wrapper #landingLogos { margin: 0px; padding: 0px; height: 75px; width: 906px; clear: both; float: left; left: 0px; top: 0px; }
 #wrapper #aboutUsMenuOptions  { color: #FFF; padding: 0px; float: left; width: 906px; position: relative; top: 0px; right: 0px; font-size: 16px; background-image: url(../_images/landingPages/indexPage/menu_BarBlue.png); background-repeat: no-repeat; margin: 0px; height: 40px; clear: left; 
@@ -2383,8 +2383,8 @@ table.pager {
 
 
 #wrapper #mainFooter #menuFooterBottom{ margin: 0px; padding: 12px 0px 0px 15px; height: 30px; width: 891px; position: relative; top: 0px; background: #FFF url(../_images/landingPages/indexPage/01landingPage18.jpg) no-repeat; left: 0px; color: #FFF; font-size: 14px; text-align: left; clear: both; float: left; }
-#gr8ph1csLogo { background-image: url(../_images/landingPages/landingPageButtons/gr8ph1csLogo_off.png); float: right; display: block; position: relative; top: -24px; right: 10px; width: 140px; height: 34px; margin: 0px; padding: 0px; }
-#gr8ph1csLogo:hover, #gr8ph1csLogo.hover { background-image: url(../_images/landingPages/landingPageButtons/gr8ph1csLogo_on.png); }
+#gr8ph1csLogo { background-image: url(../../static/_images/landing_pages/landing_page_buttons/gr8ph1cs_logo_off.png); float: right; display: block; position: relative; top: -24px; right: 10px; width: 140px; height: 34px; margin: 0px; padding: 0px; }
+#gr8ph1csLogo:hover, #gr8ph1csLogo.hover { background-image: url(../../static/_images/landing_pages/landing_page_buttons/gr8ph1cs_logo_on.png); }
 
 #wrapper #Footer {
   background-image: url(../_images/landingPage/01landingPage05.jpg);

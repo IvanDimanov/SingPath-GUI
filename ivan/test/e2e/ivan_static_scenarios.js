@@ -42,12 +42,12 @@ function testMenuOptions(options, containerSelector, selectedOptionClass) {
       }
       
       // Test all the rest option properties
-      linkSelecter = containerSelector + ' > a:eq('+ i +')';
+      $link = element(containerSelector + ' > a:eq('+ i +')');
       
-      expect(element(linkSelecter).text()        ).toBe(option["text"]);
-      expect(element(linkSelecter).attr("href")  ).toBe(option["href"]);
-      expect(element(linkSelecter).attr("target")).toBe(option["target"]);
-      expect(element(linkSelecter).attr("title") ).toBe(option["title"]);
+      expect($link.text()).toBe(option["text"]);
+      expect($link.attr("href")  ).toBe(option["href"]);
+      expect($link.attr("target")).toBe(option["target"]);
+      expect($link.attr("title") ).toBe(option["title"]);
     }
   }
   
@@ -78,7 +78,7 @@ function testSiteLogo() {
   expect($logo.attr('title')).toBe('SingPath Logo');
   
   // Test the logo base and hover URLs
-  testImageBaseAndHover(logoSelector, '/kit/_images/landingPages/landingPageButtons/singpathLogo');
+  testImageBaseAndHover(logoSelector, '/static/_images/landing_pages/landing_page_buttons/singpath_logo');
 }
 
 
@@ -104,7 +104,7 @@ function testUserLoginMenu() {
     expect($homeBtn.attr('href' )).toBe('home.html');
     expect($homeBtn.attr('title')).toBe('Return to Your Home page');
     
-    testImageBaseAndHover(homeBtnSelector, '/kit/_images/landingPages/landingPageButtons/houseProfile');
+    testImageBaseAndHover(homeBtnSelector, '/static/_images/landing_pages/landing_page_buttons/house_profile');
     
     
     // Testing user main info
@@ -118,7 +118,7 @@ function testUserLoginMenu() {
     expect($shopBtn.attr('href' )).toBe('shop.html');
     expect($shopBtn.attr('title')).toBe('Go to the SingPath Shop');
     
-    testImageBaseAndHover(shopBtnSelector, '/kit/_images/landingPages/landingPageButtons/shoppingTrolley');
+    testImageBaseAndHover(shopBtnSelector, '/static/_images/landing_pages/landing_page_buttons/shopping_trolley');
     
     // Test sign out btn visibility
     $signOutBtn = element('#menuFooterTop > [ng-switch=""] > a');
@@ -178,7 +178,7 @@ function testCommonLeftMenu(resource, containerSelector) {
   profiles = using(menuSelector).repeater('.profile');
   expect(profiles.count()).toBe(expectedCount);
   
-  profileImgSrcPart = '../kit/_images/landingPages/contributionPage/profiles/';
+  profileImgSrcPart = '../static/_images/landing_pages/contribution_page/profiles/';
   
   for(i=0; i<expectedCount; i++) {
     profile = resource[i];
@@ -265,12 +265,196 @@ function testCompanyLogo() {
   expect($logo.attr('title' )).toBe('Designed by gr8ph1cs Creative');
   
   // Test logo base and hover URLs
-  testImageBaseAndHover(logoSelector, '/kit/_images/landingPages/landingPageButtons/gr8ph1csLogo');
+  testImageBaseAndHover(logoSelector, '/static/_images/landing_pages/landing_page_buttons/gr8ph1cs_logo');
 }
 
 
+// Test common Panel properties
+function testPanel(panelLabel, panelController, btnLable, btnTitle, btnHref) {
+  // Test panel existance
+  var panelSelector = '.ng-scope[ng-controller=' + panelController + ']';
+  expect(element(panelSelector).count()).toBe(1);
+  
+  
+  // Test panel main label
+  var $labelContainer = element(panelSelector + ' > [ng-class=containerClass] > .labelContainer > .label.ng-binding');
+  expect($labelContainer.count()).toBe(1);
+  expect($labelContainer.text()).toMatch('^(\n)?(\\s)*' + panelLabel + '(\n)?(\\s)*$');
+  
+  
+  // Test panel top-left btn
+  var btnSelector = panelSelector + ' a.commonBtn.big',
+      $btn        = element(btnSelector);
+  expect($btn.count()).toBe(1);
+  expect($btn.attr('title')).toBe(btnTitle);
+  expect($btn.attr('href' )).toBe(btnHref);
+  
+  var btnLabelSelector = btnSelector + ' .middle',
+      $btnLabel        = element(btnLabelSelector);
+  expect($btnLabel.count()).toBe(1);
+  expect($btnLabel.text()).toMatch('^(\n)?(\\s)*' + btnLable + '(\n)?(\\s)*$');
+}
+
+
+// Test all popUp common attributes
+function testPopUp(popUpSelector, showPopUpBtnSelector, topLeftLabel, btns) {
+  var $showPopUpBtn = element(showPopUpBtnSelector),
+      $popUp        = element(popUpSelector);
+  
+  // Secure a btns array
+  btns = btns ? btns : [];
+  
+  
+  /*** Testing Visibility ***/
+  
+  // Common expression to expect the poppUp to be visible
+  function expectVisible() {
+    expect($popUp.attr('class')).toBe('popUp show');
+  }
+  
+  // Common expression to expect the poppUp to be hidden
+  function expectHidden() {
+    expect($popUp.attr('class')).toBe('popUp hide');
+  }
+  
+  // Test popUp Show event
+  function testShowPopUp() {
+    expectHidden();
+    $showPopUpBtn.click();
+    expectVisible();
+  }
+  
+  
+  // Test popUp Hide event
+  function testHidePopUp(selector) {
+    expectVisible();
+    element(popUpSelector + ' ' + selector).click()
+    expectHidden();
+  }
+  
+  // Test and Set a visible popUp
+  testShowPopUp();
+  
+  // Test Close (X) btn
+  testHidePopUp('.closeBtn');
+  
+  // Test and Set a visible popUp
+  testShowPopUp();
+  
+  // Test Click outside event
+  testHidePopUp('.container');
+  
+  // Test and Set a visible popUp
+  testShowPopUp();
+  
+  /*** End Testing Visibility ***/
+  
+  
+  // Test PopUp top-left label
+  var $label = element(popUpSelector + ' > .container > .mainContent > .labelContainer > .label.ng-binding');
+  expect($label.count()).toBe(1);
+  expect($label.text()).toMatch('^(\n)?(\\s)*' + topLeftLabel + '(\n)?(\\s)*$');
+  
+  
+  // Test Bottom btns
+  if (btns.length) {
+    var btnsContainerSelector = popUpSelector + ' [on=popUp.btns.length] > .labelBottomContainer'
+    i      = 0,
+    length = btns.length,
+    btn    = btns[i],
+    $btn   = null;
+    
+    // Test Btns existance
+    expect(element(btnsContainerSelector).count()).toBe(1);
+    
+    // Test each bottom btn
+    for (; i < length; btn = btns[++i]) {
+      $btn = element(btnsContainerSelector + ' > .label > a.btn:eq(' + i +')');
+      
+      expect($btn.attr('href') ).toBe(btn.href);
+      expect($btn.attr('title')).toBe(btn.title);
+      expect($btn.text()       ).toBe(btn.label);
+    }
+  }
+  
+  // Hide the popUp as an initial state
+  testHidePopUp('.closeBtn');
+}
+
+
+// Test all common Profile panel info
+function testCommonProfilePanel(mainContentSelector, player) {
+  
+  // Test panel background image
+  var professionalStatus = player.professional*1 ? 'professional' : 'student',
+      $mainContainer     = element(mainContentSelector);
+  
+  expect($mainContainer.count()).toBe(1);
+  expect($mainContainer.attr('class')).toMatch(professionalStatus + '$');
+  
+  // Test the middle text container existance
+  var textContainerSelector = mainContentSelector + ' > .textContainer';
+  expect(element(textContainerSelector).count()).toBe(1);
+  
+  
+  /*** Test Player Images ***/
+  
+  var imgContainerSelector = textContainerSelector + ' .imgWrapper';
+  
+  // Test the player top-center name
+  expect(element(textContainerSelector + ' .profileName').text()).toBe(player.name);
+  
+  // Test player gravatar
+  expect(element(imgContainerSelector + ' .gravatar').attr('src')).toBe(player.gravatar);
+  
+  // Test player country flag
+  expect(element(imgContainerSelector + ' .country').attr('src')).toBe(player.playerCountryFlagURL);
+  
+  // Test player gender image
+  expect(element(imgContainerSelector + ' .gender').attr('src')).toBe('../static/_images/common_buttons/gender_icon_' + player.gender + '_off.png');
+  
+  
+  /*** Test Player profile details ***/
+  
+  var datailsSelector = textContainerSelector + ' .detailsWrapper';
+  
+  // Test player top-center professional status label
+  expect(element(datailsSelector + ' [ng-bind="profilePanel.professionalLabel"]').text()).toBe(professionalStatus);
+  
+  // test player location
+  expect(element(datailsSelector + ' [ng-bind="profilePanel.locationClamp"]').text()).toBe(player.location);
+  
+  // Test Player tags
+  var allTags     = player.tags,
+      visibleTags = clampArrayByStringLength(allTags, 30),
+      i           = 0
+      length      = visibleTags.length,
+      tag         = visibleTags[i],
+      $tag        = null;
+  
+  // Test each and all tag attributes
+  for (; i < length; tag = visibleTags[++i]) {
+    $tag = element(datailsSelector + ' [ng-bind="tag"]:eq(' + i + ')');
+    
+    expect($tag.text()       ).toBe(tag);
+    expect($tag.attr('src'  )).toBe('/ranking.html?tag=' + tag);
+    expect($tag.attr('title')).toBe('Ranking tag: ' + tag);
+  }
+  
+  // Test for if there were more tags than the one shown
+  if (allTags.length != visibleTags.length) {
+    // Test if the more tags mark is been displayed
+    expect(element(datailsSelector + ' .moreTagsMark').count()).toBe(1);
+  }
+  
+  // Test Player About info
+  expect(element(datailsSelector + ' [ng-bind="profilePanel.aboutClapm"]').text()).toBe(clampString(player.about, 140));
+}
+
+
+
 describe('Additinal tests from Ivan', function() {
-  it('Testing kit/index.html', function() {
+  it('Testing index.html', function() {
     // Load page
     browser().navigateTo('../../index.html');
     
@@ -284,7 +468,7 @@ describe('Additinal tests from Ivan', function() {
     // Test TV icon
     TVIconSelector = fieldSelector + ' > .tvIcon';
     expect(element(TVIconSelector).attr('title')).toBe('Watch the SingPath videos');
-    testImageBaseAndHover(TVIconSelector, '/kit/_images/landingPages/landingPageButtons/television');
+    testImageBaseAndHover(TVIconSelector, '/static/_images/landing_pages/landing_page_buttons/television');
     
     // Test TV text
     expect(element(fieldSelector + ' > .text').text()).toBe('Coming Soon!!');
@@ -371,7 +555,7 @@ describe('Additinal tests from Ivan', function() {
     expect($facebookLogo.attr('title' )).toBe('follow us on Facebook');
     
     // Test Facebook hover images
-    testImageBaseAndHover(facebookLogoSelector, '/kit/_images/landingPages/landingPageButtons/socialButtonsFacebook');
+    testImageBaseAndHover(facebookLogoSelector, '/static/_images/landing_pages/landing_page_buttons/social_buttons_facebook');
     
     
     // Test Twitter logo
@@ -382,11 +566,255 @@ describe('Additinal tests from Ivan', function() {
     expect($twitterLogo.attr('title' )).toBe('follow us on Twitter');
     
     // Test Twitter hover images
-    testImageBaseAndHover(twitterLogoSelector, '/kit/_images/landingPages/landingPageButtons/socialButtonsTwitter');
+    testImageBaseAndHover(twitterLogoSelector, '/static/_images/landing_pages/landing_page_buttons/social_buttons_twitter');
   });
   
   
-  it('Testing kit/howToUse.html', function() {
+  it('Testing home.html', function() {
+    // Load page
+    browser().navigateTo('../../home.html');
+    
+    // Test all Page Head Elements from the common function
+    testPageHead();
+    
+    
+    // Test Page content
+    
+    
+    // Test Player Profile
+    var player = {
+      "gravatar": "http://www.gravatar.com/avatar/ff255e745f42e8617e7d19e69cccd2f5/?default=&amp;s=80",
+      "playerCountryFlagURL": "../static/flags/us_on.png",
+      "gender": "male",
+      "name": "Mark Zuckerberg",
+      "location": "Singapore",
+      "tags": ["SMU"],
+      "professional": "0",
+      "about": "I like to program."
+    }
+    
+    // Test all common output in the Player Profile Panel
+    testCommonProfilePanel('[ng-controller=ProfilePanelCtrl] > .ng-scope.profileContainer', player);
+    
+    
+    // Test Badges
+    testPanel('Badges', 'BadgesPanelCtrl', 'View Badges', 'View Badges', 'badges.html');
+    
+    // Test badge main content existance
+    var badgeContainerSelecter = '.ng-scope[ng-switch-when=badgesContainer] .text.ng-scope';
+    expect(element(badgeContainerSelecter).count()).toBe(1);
+    
+    // All test user badges
+    var badgesResource = [
+      {
+        "description": "Problem Creator Badge",
+        "imageURL"   : "/static/badges/badge001.png"
+      },
+      {
+        "description": "Python Level 1 Badge",
+        "imageURL"   : "/static/badges/python/p001_on.png"
+      },
+      {
+        "description": "Ruby Level 1",
+        "imageURL"   : "/static/badges/ruby/r001_on.png"
+      },
+      {
+        "description": "Javascript Level 1 Badge",
+        "imageURL"   : "/static/badges/javascript/js001_on.png"
+      },
+      {
+        "description": "Beginner Python Level 1 Badge",
+        "imageURL"   : "/static/badges/mobilepaths/pythonMobile/mobilePythonBadge01.png"
+      },
+      {
+        "description": "Beginner Python Level 2 Badge",
+        "imageURL"   : "/static/badges/mobilepaths/pythonMobile/mobilePythonBadge02.png"
+      }
+    ],
+    i      = 0,
+    length = badgesResource.length,
+    badge  = badgesResource[i],
+    img;
+    
+    
+    // Test each badge properties
+    for (; i < length; badge = badgesResource[++i]) {
+      $img = element(badgeContainerSelecter + ' img:eq(' + i +')');
+      
+      expect($img.count()        ).toBe(1);
+      expect($img.attr('src'    )).toBe(badge.imageURL);
+      expect($img.attr('title'  )).toBe(badge.description);
+      expect($img.attr('alt'    )).toBe(badge.description);
+      expect($img.attr('onclick')).toBe("alert('" + badge.description + "')");
+      
+      // Check if the first badge gets the special first class
+      if (!i) {
+        expect($img.attr('class')).toBe('ng-scope first');
+      }
+    }
+    
+    
+    // Test Rankings
+    var rankings = {
+      "path_name": "Beginner Python",
+      "path_id": 6920762,
+      "players": [
+        {
+          "name": "Nitin",
+          "playerid": 9227576,
+          "gender": "male",
+          "professional": "1",
+          "location": "Location 1",
+          "tags": ["tag 11"],
+          "about": "About Ranked player 1",
+          "highestBadge": {
+            "url": "/static/badges/mobilepaths/pythonMobile/mobilePythonBadge08.png",
+            "description": "Beginner Python Level 8 Badge",
+            "awardOrder": 8,
+            "class": [
+              "Badge",
+              "Level_Badge"
+            ],
+            "name": "Level 8"
+          },
+          "rank": 1,
+          "playerCountryFlagURL": "/static/flags/in_on.png",
+          "gravatar": "http://www.gravatar.com/avatar/b9977b0bc73f652a527b5f2213f1a264/?default=&amp;s=80",
+          "solved_num": 102,
+          "badgeURL": "/static/badges/mobilepaths/pythonMobile/mobilePythonBadge08.png"
+        },
+        
+        {
+          "name": "Sei",
+          "playerid": 2420017,
+          "gender": "female",
+          "professional": "1",
+          "location": "Location 2",
+          "tags": ["tag 21"],
+          "about": "About Ranked player 2",
+          "highestBadge": {
+            "url": "/static/badges/mobilepaths/pythonMobile/mobilePythonBadge08.png",
+            "description": "Beginner Python Level 8 Badge",
+            "awardOrder": 8,
+            "class": [
+              "Badge",
+              "Level_Badge"
+            ],
+            "name": "Level 8"
+          },
+          "rank": 2,
+          "playerCountryFlagURL": "/static/flags/sg_on.png",
+          "gravatar": "http://www.gravatar.com/avatar/dfdcedba3fec427a68dc95ecaccb9de8/?default=&amp;s=80",
+          "solved_num": 101,
+          "badgeURL": "/static/badges/mobilepaths/pythonMobile/mobilePythonBadge08.png"
+        },
+        
+        {
+          "name": "Aint Myat Noe @ Michelle",
+          "playerid": 5445164,
+          "gender": "female",
+          "professional": "0",
+          "location": "Location 3",
+          "tags": ["tag 13"],
+          "about": "About Ranked player 3",
+          "highestBadge": {
+            "url": "/static/badges/mobilepaths/pythonMobile/mobilePythonBadge08.png",
+            "description": "Beginner Python Level 8 Badge",
+            "awardOrder": 8,
+            "class": [
+              "Badge",
+              "Level_Badge"
+            ],
+            "name": "Level 8"
+          },
+          "rank": 3,
+          "playerCountryFlagURL": "/static/flags/sg_on.png",
+          "gravatar": "http://www.gravatar.com/avatar/302b796a8e90553ebfa9e934b55d7634/?default=&amp;s=80",
+          "solved_num": 101,
+          "badgeURL": "/static/badges/mobilepaths/pythonMobile/mobilePythonBadge08.png"
+        }
+      ],
+      "path_description": "Beginner Python",
+      "maxRank": 3,
+      "type": "ranking"
+    },
+    i       = 0,
+    players = rankings.players,
+    length  = players.length,
+    player  = players[i],
+    
+    playerSelector = ''
+    $rankImg       = null,
+    $gravatar      = null,
+    $badge         = null;
+    
+    // Test panel main components
+    testPanel(rankings.path_name + ' Rankings', 'RankingPanelCtrl', 'View Rankings', 'View Rankings', 'ranking.html?path_id=' + rankings.path_id);
+    
+    var mainPanelSelector   = '.ng-scope[ng-switch-when=rankingContainer]',
+        mainContentSelector = mainPanelSelector + ' > .text.ng-scope';
+    expect(element(mainContentSelector).count()).toBe(1);
+    
+    for (; i < length; player = players[++i]) {
+      playerSelector = mainContentSelector + ' .player.ng-scope:eq(' + i + ')';
+      
+      // Test Player Rank
+      $rankImg = element(playerSelector + ' img.rank');
+      expect($rankImg.attr('src')).toBe('_images/commonButtons/numbers/number0' + (i+1) + '.png');
+      expect($rankImg.attr('alt')).toBe('Rank ' + player.rank);
+      
+      // Test Player Gravatar
+      $gravatar = element(playerSelector + ' .popUpLink img.gravatar');
+      expect($gravatar.attr('src')).toBe(player.gravatar);
+      expect($gravatar.attr('alt')).toBe(player.name + "'s gravatar");
+      
+      // Test Player Name
+      expect(element(playerSelector + ' .popUpLink .name.ng-binding').text()).toBe(clampString(player.name, 20));
+      
+      // Test Player solved number cases
+      expect(element(playerSelector + ' .solvedNum.ng-binding').text()).toBe(player.solved_num + '');
+      
+      // Test Player country flag
+      expect(element(playerSelector + ' img.flag').attr('src')).toBe(player.playerCountryFlagURL);
+      
+      // Test player highest badge
+      $badge = element(playerSelector + ' img.highestBadge');
+      expect($badge.attr('src'    )).toBe(player.highestBadge.url);
+      expect($badge.attr('alt'    )).toBe(player.highestBadge.description);
+      expect($badge.attr('title'  )).toBe(player.highestBadge.description);
+      expect($badge.attr('onclick')).toBe("alert('" + player.highestBadge.description + "')");
+      
+      
+      // Test Player Profile popUp
+      var showPopUpBtnSelector = playerSelector + ' .popUpLink',
+          popUpSelector        = mainPanelSelector + ' .popUp',
+          topLeftLabel         = 'Profile';
+      
+      testPopUp(popUpSelector, showPopUpBtnSelector, topLeftLabel);
+      
+      
+      // Test each Profile popUp data
+      // Show the popUp
+      element(showPopUpBtnSelector).click();
+      
+      // Test Profile data
+      testCommonProfilePanel(popUpSelector + ' .mainContent', player);
+      
+      // Hide the popUp
+      element(popUpSelector + ' .closeBtn').click();
+    }
+    
+    
+    // Test Challenge Board
+    testPanel('Challenges', 'ChallengesPanelCtrl', 'Challenge Board', 'Challenge Board', 'challengeBoard.html');
+    
+    
+    // Test all page footer elements
+    testPageFooter();
+  });
+  
+  
+  it('Testing howToUse.html', function() {
     // Load page
     browser().navigateTo('../../howToUse.html');
     
@@ -404,7 +832,7 @@ describe('Additinal tests from Ivan', function() {
   });
   
   
-  it('Testing kit/aboutUs.html', function() {
+  it('Testing aboutUs.html', function() {
     // Load page
     browser().navigateTo('../../aboutUs.html');
     
@@ -423,7 +851,7 @@ describe('Additinal tests from Ivan', function() {
   });
   
   
-  it('Testing kit/contribution.html', function() {
+  it('Testing contribution.html', function() {
     // Load page
     browser().navigateTo('../../contribution.html');
     
@@ -442,7 +870,7 @@ describe('Additinal tests from Ivan', function() {
   });
   
   
-  it('Testing kit/news.html', function() {
+  it('Testing news.html', function() {
     // Load page
     browser().navigateTo('../../news.html');
     
@@ -460,7 +888,7 @@ describe('Additinal tests from Ivan', function() {
   });
   
   
-  it('Testing kit/shop.html', function() {
+  it('Testing shop.html', function() {
     // Load page
     browser().navigateTo('../../shop.html');
     
@@ -476,7 +904,7 @@ describe('Additinal tests from Ivan', function() {
   });  
   
   
-  it('Testing kit/badges.html', function() {
+  it('Testing badges.html', function() {
     // Load page
     browser().navigateTo('../../badges.html');
     

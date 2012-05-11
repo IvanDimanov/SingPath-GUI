@@ -124,7 +124,7 @@ function ContributionCtrl($scope, $resource) {
   $scope.contributors = $resource('../jsonapi/contributors').query();
   
   // Cache the base sorce path so we could keep the database thin
-  $scope.baseSrc = '../kit/_images/landingPages/contributionPage/profiles/';
+  $scope.baseSrc = '../static/_images/landing_pages/contribution_page/profiles/';
 };
 
 
@@ -143,7 +143,7 @@ function StaffCtrl($scope, $resource) {
   $scope.staff = $resource('../jsonapi/staff').query();
   
   // Cache the base sorce path so we could keep the database thin
-  $scope.baseSrc = '../kit/_images/landingPages/contributionPage/profiles/';
+  $scope.baseSrc = '../static/_images/landing_pages/contribution_page/profiles/';
 };
 
 
@@ -819,7 +819,7 @@ function HomeCtrl($scope, $resource, $route){
 
 HomeCtrl.prototype.loadPlayer = function($scope) {
   // Loading a test player
-  this.jsonapi.get({id: 'player_test'}, function(player) {
+  this.jsonapi.get({id: 'player'}, function(player) {
     $scope.player = player;
   });
 }
