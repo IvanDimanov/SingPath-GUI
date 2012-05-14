@@ -28,6 +28,26 @@
   }
   
   
+  // Create a string representative of all profile tags
+  function setPopUpTags($scope) {
+    $scope.profilePopUp.tagsAsText = $scope.profilePopUp.tags.join(', ');
+  }
+  
+  // Update the panel background image regarding the income professional status
+  function setProfessionalStatus($scope, isProfessional) {
+    // Get the status as text
+    var professionalStatus = isProfessional*1 ? 'professional' : 'student';
+    var cssClass           = $scope.containerClass;
+    
+    // Remove all possible past existance of the status in the class
+    cssClass = cssClass.replace(' professional', '');
+    cssClass = cssClass.replace(' student'     , '');
+    
+    // Add the new status in the CSS class directive
+    $scope.containerClass = cssClass + ' ' + professionalStatus;
+  }
+  
+  
   window.ProfilePanelCtrl = function ($scope, $resource) {
     $scope.containerClass = "profileContainer";
     $scope.label          = "Profile";
@@ -95,11 +115,26 @@
               // Prevent a multiple saving before we have a server response
               $scope.popUp.saving = true;
               
-              // Saving is disabled coz so far the server cannot handle POST requests
-              $scope.profileResource.$save(function () {
+              // Send all validated profile details to the server
+              $scope.profileResource.$save(function (savedProfile) {
+                
+                // Take the saved profile as a default
+                $scope.profileResource = savedProfile;
+                $scope.profilePanel    = clone(getPlayerPanelDate(savedProfile));
+                
+                // Update popUps tags as text for the input field
+                setPopUpTags($scope);
+                
+                // Update the panel background image regarding the income professional status
+                setProfessionalStatus($scope, savedProfile.professionalOption);
+                
+                // Return the Save btn original stage
                 $scope.popUp.btns[0].label = 'Save Details';
                 $scope.popUp.btns[0].class = '';
                 $scope.popUp.saving        = false;
+                
+                // Hide the Details Edit popUp
+                $scope.popUp.class = 'hide';
               });
             }
           }
@@ -122,7 +157,7 @@
     
     // Load Player profile data
     $scope.profileResource = $resource('../jsonapi/player').get(function(profile) {
-      var nicknameMinChars, nicknameMaxChars, locationMinChars, locationMaxChars, maxTags, aboutTextMax, professionalStatus;
+      var nicknameMinChars, nicknameMaxChars, locationMinChars, locationMaxChars, maxTags, aboutTextMax, professionalStatus, tagMinChars, tagMaxChars, tagMatcher, allTagsMatcher;
       
       // Copy the original profile data so we could display it in the popUp
       $scope.profilePopUp = profile;
@@ -166,21 +201,22 @@
       
       // Tags
       // Gets all tags and set them in a single string
-      $scope.profilePopUp.tagsAsText = $scope.profilePopUp.tags.join(', ');
+      setPopUpTags($scope);
       
       // Validates all tag's combinations and sets a limit of maxTags
+      tagMinChars         = 2;
+      tagMaxChars         = 60;
       maxTags             = 50;
-      $scope.tagsRegExp   = new RegExp('^([^,]{2,},[ ]+){0,'+ (maxTags-1) +'}([^,]{2,})?$');
+      tagMatcher          = '([\\s]*[^\\s][^,]{'+ (tagMinChars-1) +','+ (tagMaxChars-1) +'})';
+      allTagsMatcher      = '^'+ tagMatcher +'([\\s]*,'+ tagMatcher +'){0,'+ (maxTags-1) +'}$';
+      $scope.tagsRegExp   = new RegExp(allTagsMatcher);
       $scope.tagsErrorMsg = 'Please follow the syntax of "tag1, tag2, ..., tagN" for maximum of '+ maxTags +' tags';
       
       
-      // Professional option and label 
-      $scope.profilePopUp.professionalOption = profile.professional*1;
-      professionalStatus                     = $scope.profilePopUp.professionalOption ? 'professional' : 'student';
-      
-      // Specify the panel background image regarding the professional status
-      $scope.containerClass += " " + professionalStatus;
-      
+      // Professional option and label
+      profile.professional                  *= 1
+      $scope.profilePopUp.professionalOption = profile.professional;
+      setProfessionalStatus($scope, profile.professional);
       
       // Any text above aboutTextMax chars will be invalid
       aboutTextMax         = 1000;

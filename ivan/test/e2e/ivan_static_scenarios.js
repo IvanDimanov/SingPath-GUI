@@ -324,7 +324,6 @@ function testPopUp(popUpSelector, showPopUpBtnSelector, topLeftLabel, btns) {
     expectVisible();
   }
   
-  
   // Test popUp Hide event
   function testHidePopUp(selector) {
     expectVisible();
@@ -453,6 +452,73 @@ function testCommonProfilePanel(mainContentSelector, player) {
 
 
 
+// Test a form input length or number extremums and default value if mentioned
+function testField(testType, formSelector, fieldModel, _minNumber, _maxNumber, defaultValue) {
+  var $form         = element(formSelector),
+      fieldSelector = formSelector + ' [ng-model="' + fieldModel + '"]',
+      $field        = element(fieldSelector);
+  
+  // Test field existance
+  expect($field.count()).toBe(1);
+  
+  // The default value testing is optional
+  if (defaultValue != undefined) {
+    expect($field.val()).toBe(defaultValue);
+  }
+  
+
+  // Secure min and max values
+  _minNumber = Math.abs(_minNumber);
+  _maxNumber = Math.abs(_maxNumber);
+
+  var minNumber = Math.min(_minNumber, _maxNumber),
+      maxNumber = Math.max(_minNumber, _maxNumber);
+  
+  
+  // Check whatever we need to test
+  if (testType == 'string') {
+    
+    // Set a char tha will fill the input while testing
+    var testChar = defaultValue ? defaultValue[0] : 'a';
+    
+    // Test model minimum length
+    if (minNumber) {
+      input(fieldModel).enter(testChar.repeat(minNumber - 1));
+      expect($field.attr('class')).toMatch('ng-invalid-pattern');
+    }
+    
+    input(fieldModel).enter(testChar.repeat(minNumber));
+    expect($field.attr('class')).toMatch('ng-valid-pattern');
+    
+    
+    // Test model maximum length
+    input(fieldModel).enter(testChar.repeat(maxNumber + 1));
+    expect($field.attr('class')).toMatch('ng-invalid-pattern');
+    
+    input(fieldModel).enter(testChar.repeat(maxNumber));
+    expect($field.attr('class')).toMatch('ng-valid-pattern');
+    
+    
+  } else if (testType == 'number') {
+
+    // Test model minimum number
+    input(fieldModel).enter(minNumber - 1);
+    expect($field.attr('class')).toMatch('ng-invalid-pattern');
+
+    input(fieldModel).enter(minNumber);
+    expect($field.attr('class')).toMatch('ng-valid-pattern');
+
+
+    // Test model maximum number
+    input(fieldModel).enter(maxNumber + 1);
+    expect($field.attr('class')).toMatch('ng-invalid-pattern');
+
+    input(fieldModel).enter(maxNumber);
+    expect($field.attr('class')).toMatch('ng-valid-pattern');
+  }
+}
+
+
 describe('Additinal tests from Ivan', function() {
   it('Testing index.html', function() {
     // Load page
@@ -577,9 +643,7 @@ describe('Additinal tests from Ivan', function() {
     // Test all Page Head Elements from the common function
     testPageHead();
     
-    
     // Test Page content
-    
     
     // Test Player Profile
     var player = {
@@ -589,12 +653,86 @@ describe('Additinal tests from Ivan', function() {
       "name": "Mark Zuckerberg",
       "location": "Singapore",
       "tags": ["SMU"],
+      "yearOfBirth": "1985",
       "professional": "0",
       "about": "I like to program."
     }
     
     // Test all common output in the Player Profile Panel
-    testCommonProfilePanel('[ng-controller=ProfilePanelCtrl] > .ng-scope.profileContainer', player);
+    var profilePanelSelector = '[ng-controller=ProfilePanelCtrl]';
+    testCommonProfilePanel(profilePanelSelector + ' > .ng-scope.profileContainer', player);
+    
+    // Test Player Edit Profile popUp
+    var popUpSelector        = profilePanelSelector + ' .popUp',
+        showPopUpBtnSelector = profilePanelSelector + ' .ng-scope.profileContainer > div > a.commonBtn[href=#/edit-profile]',
+        topLeftLabel         = 'Edit Profile';
+    
+    testPopUp(popUpSelector, showPopUpBtnSelector, topLeftLabel);
+    
+    
+    var formSelector = popUpSelector + ' form[name=profileDetailsForm]';
+    
+    // Test player gravatar
+    expect(element(formSelector + ' .gravatarContainer > img.gravatar').attr('src')).toBe(player.gravatar);
+    
+    // Test Player name value and extremums
+    testField('string', formSelector, 'profilePopUp.nickname', 2, 200, player.name);
+    
+    // Test Player location value and extremums
+    testField('string', formSelector, 'profilePopUp.location', 2, 1000, player.location);
+    
+    // Test Player year of birth
+    testField('number', formSelector, 'profilePopUp.yearOfBirth', 1912, 2002, player.yearOfBirth);
+    
+    
+    // Test the Tags field
+    var tagMinChars = 2,
+        tagMaxChars = 60,
+        maxTags     = 50;
+    
+    var $form         = element(formSelector),
+        fieldModel    = 'profilePopUp.tagsAsText',
+        fieldSelector = formSelector + ' [ng-model="'+ fieldModel +'"]',
+        $field        = element(fieldSelector);
+    
+    // Test tag's field existance
+    expect($field.count()).toBe(1);
+    
+    // Test Player tags as default input
+    expect($field.val()).toBe(player.tags.join(', '));
+    
+    // Dummy char to test with as a tag input
+    var testChar = 'a';
+    
+    
+    // Test tag minimum value
+    input(fieldModel).enter(testChar.repeat(tagMinChars - 1));
+    expect($field.attr('class')).toMatch('ng-invalid-pattern');    
+    
+    input(fieldModel).enter(testChar.repeat(tagMinChars));
+    expect($field.attr('class')).toMatch('ng-valid-pattern');    
+    
+    
+    // Test tag maximum value
+    input(fieldModel).enter(testChar.repeat(tagMaxChars + 1));
+    expect($field.attr('class')).toMatch('ng-invalid-pattern');    
+    
+    input(fieldModel).enter(testChar.repeat(tagMaxChars));
+    expect($field.attr('class')).toMatch('ng-valid-pattern');    
+    
+    
+    // Test maximum input tags
+    var tagChar = 'tag';
+    
+    input(fieldModel).enter((tagChar + ', ').repeat(maxTags) + tagChar);
+    expect($field.attr('class')).toMatch('ng-invalid-pattern');    
+    
+    input(fieldModel).enter((tagChar + ', ').repeat(maxTags - 1) + tagChar);
+    expect($field.attr('class')).toMatch('ng-valid-pattern');    
+    
+    
+    // Test Player about message and extremums
+    testField('string', formSelector, 'profilePopUp.about', 0, 1000, player.about);
     
     
     // Test Badges
@@ -785,7 +923,7 @@ describe('Additinal tests from Ivan', function() {
       expect($badge.attr('onclick')).toBe("alert('" + player.highestBadge.description + "')");
       
       
-      // Test Player Profile popUp
+      // Test each Ranked Player's Profile popUp
       var showPopUpBtnSelector = playerSelector + ' .popUpLink',
           popUpSelector        = mainPanelSelector + ' .popUp',
           topLeftLabel         = 'Profile';
@@ -814,24 +952,6 @@ describe('Additinal tests from Ivan', function() {
   });
   
   
-  it('Testing howToUse.html', function() {
-    // Load page
-    browser().navigateTo('../../howToUse.html');
-    
-    // Test all Page Head Elements from the common function
-    testPageHead();
-    
-    // Test Page content
-    expect(element('#contributorsInfoBoxText > p').text()).toBe('How to Use');
-    
-    // Test the contribution menu form the common function
-    testContributionMenu();
-    
-    // Test all page footer elements
-    testPageFooter();
-  });
-  
-  
   it('Testing aboutUs.html', function() {
     // Load page
     browser().navigateTo('../../aboutUs.html');
@@ -845,6 +965,24 @@ describe('Additinal tests from Ivan', function() {
     
     // Test the contribution menu form the common function
     testStaffMenu();
+    
+    // Test all page footer elements
+    testPageFooter();
+  });
+  
+  
+  it('Testing howToUse.html', function() {
+    // Load page
+    browser().navigateTo('../../howToUse.html');
+    
+    // Test all Page Head Elements from the common function
+    testPageHead();
+    
+    // Test Page content
+    expect(element('#contributorsInfoBoxText > p').text()).toBe('How to Use');
+    
+    // Test the contribution menu form the common function
+    testContributionMenu();
     
     // Test all page footer elements
     testPageFooter();

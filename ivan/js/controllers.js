@@ -17,14 +17,13 @@ function IndexStatsPageCtr($scope){
 
 
 // Send a request back to the server which page was loaded and when
-function LogAccessCtrl($resource) {
-  var logAccess = $resource('../jsonapi/log_access').get(function() {
-    logAccess.page = getHref();
-    logAccess.date = new Date().getTime();
-    
-    // Saving will be available once we create the back-end server to response the POST requests
-    logAccess.$save();
-  });
+function LogAccessCtrl($http) {
+  var logAccess = {
+    "page": getHref(),
+    "date": new Date().getTime()
+  };
+  
+  $http.post('../jsonapi/log_access', logAccess);
 }
 
 
@@ -38,13 +37,13 @@ function MM_preloadImages() { //v3.0
 
 
 // Set a certain number of actions when the page is loaded
-window.LoadPageCtrl = function ($scope, $resource) {
+window.LoadPageCtrl = function ($scope, $http) {
   // Mapping the Global var to the current controller var
   // Note: Object copping in JavaScript is made by reference
   $scope.USER = window.USER;
   
   // Send a request back to the server which page was loaded and when
-  LogAccessCtrl($resource);
+  LogAccessCtrl($http);
   
   // Preload some basic images
   MM_preloadImages(

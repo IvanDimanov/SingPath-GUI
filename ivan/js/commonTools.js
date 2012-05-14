@@ -22,6 +22,19 @@ String.prototype.capitalFirstLetter = function() {
 }
 
 
+// Return a multiple concatenated copies of a same string
+String.prototype.repeat = function(numberOfRepeats) {
+  var result      = '';
+  numberOfRepeats = numberOfRepeats > 0 ? numberOfRepeats : 0;
+  
+  while (numberOfRepeats--) {
+    result += this;
+  }
+  
+  return result;
+}
+
+
 // Return the page from the window URL
 function getHref() {
   href = window.location.href;
