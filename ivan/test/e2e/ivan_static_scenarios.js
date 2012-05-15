@@ -425,7 +425,7 @@ function testCommonProfilePanel(mainContentSelector, player) {
   
   // Test Player tags
   var allTags     = player.tags,
-      visibleTags = clampArrayByStringLength(allTags, 30),
+      visibleTags = clampArrayByStringLength(allTags, 25),
       i           = 0
       length      = visibleTags.length,
       tag         = visibleTags[i],
@@ -436,7 +436,7 @@ function testCommonProfilePanel(mainContentSelector, player) {
     $tag = element(datailsSelector + ' [ng-bind="tag"]:eq(' + i + ')');
     
     expect($tag.text()       ).toBe(tag);
-    expect($tag.attr('src'  )).toBe('/ranking.html?tag=' + tag);
+    expect($tag.attr('href' )).toBe('/ranking.html?tag=' + tag);
     expect($tag.attr('title')).toBe('Ranking tag: ' + tag);
   }
   
@@ -519,7 +519,30 @@ function testField(testType, formSelector, fieldModel, _minNumber, _maxNumber, d
 }
 
 
+// Test common valid input and saving player details
+function testValidProfileInput(modelSelector, panelSelector, validInput) {
+  var profilePanelSelector = '[ng-controller=ProfilePanelCtrl]',
+      popUpSelector        = profilePanelSelector + ' .popUp',
+      showPopUpBtnSelector = profilePanelSelector + ' .ng-scope.profileContainer > div > a.commonBtn[href=#/edit-profile]',
+      $showPopUpBtn        = element(showPopUpBtnSelector),
+      $saveBtn             = element(popUpSelector + ' .labelBottomContainer a[href=#save-details]');
+  
+  // Open the popUp
+  $showPopUpBtn.click()
+  
+  // Enter the valid test input
+  input(modelSelector).enter(validInput);
+  
+  // Save the new player details
+  $saveBtn.click();
+  
+  // Test if the valid input was saved
+  expect(element(profilePanelSelector + ' > .ng-scope.profileContainer ' + panelSelector).text()).toBe(validInput);
+}
+
+
 describe('Additinal tests from Ivan', function() {
+  
   it('Testing index.html', function() {
     // Load page
     browser().navigateTo('../../index.html');
@@ -707,32 +730,103 @@ describe('Additinal tests from Ivan', function() {
     
     // Test tag minimum value
     input(fieldModel).enter(testChar.repeat(tagMinChars - 1));
-    expect($field.attr('class')).toMatch('ng-invalid-pattern');    
+    expect($field.attr('class')).toMatch('ng-invalid-pattern');
     
     input(fieldModel).enter(testChar.repeat(tagMinChars));
-    expect($field.attr('class')).toMatch('ng-valid-pattern');    
+    expect($field.attr('class')).toMatch('ng-valid-pattern');
     
     
     // Test tag maximum value
     input(fieldModel).enter(testChar.repeat(tagMaxChars + 1));
-    expect($field.attr('class')).toMatch('ng-invalid-pattern');    
+    expect($field.attr('class')).toMatch('ng-invalid-pattern');
     
     input(fieldModel).enter(testChar.repeat(tagMaxChars));
-    expect($field.attr('class')).toMatch('ng-valid-pattern');    
+    expect($field.attr('class')).toMatch('ng-valid-pattern');
     
     
     // Test maximum input tags
     var tagChar = 'tag';
     
     input(fieldModel).enter((tagChar + ', ').repeat(maxTags) + tagChar);
-    expect($field.attr('class')).toMatch('ng-invalid-pattern');    
+    expect($field.attr('class')).toMatch('ng-invalid-pattern');
     
     input(fieldModel).enter((tagChar + ', ').repeat(maxTags - 1) + tagChar);
-    expect($field.attr('class')).toMatch('ng-valid-pattern');    
+    expect($field.attr('class')).toMatch('ng-valid-pattern');
     
     
     // Test Player about message and extremums
     testField('string', formSelector, 'profilePopUp.about', 0, 1000, player.about);
+    
+    
+    // Test valid player input
+    testValidProfileInput('profilePopUp.nickname', '.profileName', 'Test player name');
+    
+    // Test valid player location
+    testValidProfileInput('profilePopUp.location', '[ng-bind="profilePanel.locationClamp"]', 'Test player location');
+    
+    
+    // Test player gender option
+
+    // Open the popUp
+    element(showPopUpBtnSelector).click();
+    
+    // Select the male gender option
+    select('profilePopUp.gender').option('1');
+    
+    // Save the new player details
+    element(popUpSelector + ' .labelBottomContainer a[href=#save-details]').click();
+    
+    // Test if the player gender image is a male
+    expect(element(profilePanelSelector + ' img.gender').attr('src')).toMatch('male');
+    
+    
+    // Test valid tags input
+    
+    // Open the popUp
+    element(showPopUpBtnSelector).click();
+    
+    // Enter the valid tags input
+    var validTags = 'tag1, tag2';
+    input('profilePopUp.tagsAsText').enter(validTags);
+    
+    // Save the new player details
+    element(popUpSelector + ' .labelBottomContainer a[href=#save-details]').click();
+    
+    // Test if the valid input was saved
+    var tagSelector = profilePanelSelector + ' > .ng-scope.profileContainer [ng-repeat="tag in profilePanel.visibleTags"]';
+    
+    // Check the first tag
+    expect(element(tagSelector + ':eq(0) > .comma').attr('style')).toMatch('display:[\\s]*none');
+    expect(element(tagSelector + ':eq(0) > a').text()       ).toBe('tag1');
+    expect(element(tagSelector + ':eq(0) > a').attr('href' )).toBe('/ranking.html?tag=tag1');
+    expect(element(tagSelector + ':eq(0) > a').attr('title')).toBe('Ranking tag: tag1');
+    
+    // Check the second tag
+    expect(element(tagSelector + ':eq(1) > a').text()       ).toBe('tag2');
+    expect(element(tagSelector + ':eq(1) > a').attr('href' )).toBe('/ranking.html?tag=tag2');
+    expect(element(tagSelector + ':eq(1) > a').attr('title')).toBe('Ranking tag: tag2');
+    
+    
+    // Test player professional status
+    
+    // Open the popUp
+    element(showPopUpBtnSelector).click();
+    
+    // Select the Professional status option
+    input('profilePopUp.professionalOption').select('1');
+    
+    // Save the new player details
+    element(popUpSelector + ' .labelBottomContainer a[href=#save-details]').click();
+    
+    // Test the Player Professional status label
+    expect(element(profilePanelSelector + ' [ng-bind="profilePanel.professionalLabel"]').text()).toBe('professional');
+    
+    // Test the Player Panel background
+    expect(element('.profileContainer').attr('class')).toMatch('professional');
+    
+    
+    // Test valid player abount info
+    testValidProfileInput('profilePopUp.about', '[ng-bind="profilePanel.aboutClapm"]', 'Test aboun information');
     
     
     // Test Badges

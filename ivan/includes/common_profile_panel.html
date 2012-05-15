@@ -27,7 +27,7 @@
         <!-- The Code Style may look bit unordered coz we need no empty lines so the comma will be exactly after it's predecessor -->
         <span ng-repeat = "tag in profilePanel.visibleTags"><span class = "comma" ng-show="$position != 'first'">, </span>
           <a ng-bind = "tag"
-             ng-src  = "/ranking.html?tag={{tag}}"
+             ng-href = "/ranking.html?tag={{tag}}"
              title   = "Ranking tag: {{tag}}"
           ></a></span>
         

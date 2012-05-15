@@ -27,6 +27,7 @@ if (SET_HTTP_BACKEND) {
     
     // Let all gae_bingo tests to be executed in the server
     $httpBackend.whenPOST(/\/gae_bingo/).passThrough();
+    $httpBackend.whenGET(/\/gae_bingo/).passThrough();
     
     
     // Common loads for all pages

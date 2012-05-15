@@ -11,7 +11,7 @@
     profilePanel.locationClamp = clampString(profile.location, 35);
     
     // Sets a maximum of 30 total chars that the hole array elements cannot exceed
-    profilePanel.visibleTags = clampArrayByStringLength(profile.tags, 30);
+    profilePanel.visibleTags = clampArrayByStringLength(profile.tags, 25);
     
     // Set the panel top status label
     profilePanel.professionalLabel = profile.professional*1 ? 'professional' : 'student';
